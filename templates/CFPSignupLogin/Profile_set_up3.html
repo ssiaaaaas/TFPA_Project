@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFP Profile Creation</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background-color: #FFFFFF;
+      color: #1F4F6B;
+    }
+
+    /* Container */
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .btn-home {
+      background-color: #CF9B3E;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 15px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-home:hover {
+      background-color: #b38533;
+    }
+
+    /* Title Section */
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    /* Steps Section */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      width: 80px;
+      height: 80px;
+      background-color: #D9D9D9;
+      border-radius: 50%;
+      line-height: 80px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin: 0 10px;
+    }
+
+    .step.active {
+      background-color: #1F4F6B;
+    }
+
+    /* Form Styling */
+    .form-group {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    label, legend {
+      font-family: 'Sarabun', sans-serif;}
+
+    .form-group input,
+    .form-group select {
+        width: calc(100% - 50px);
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #cf9b3e;
+    }
+
+    .add-btn, .delete-btn {
+      background-color: #1f4f6b;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 24px;
+      margin-left: 5px;
+    }
+
+    .add-btn:hover, .delete-btn:hover {
+      background-color: #163d52;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .btn-submit {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #1F4F6B;
+      border-radius: 10px;
+      color: #1F4F6B;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #1F4F6B;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+      <button class="btn-home">หน้าหลัก</button>
+    </div>
+
+    <!-- Title -->
+    <h1>CFP สร้างโปรไฟล์</h1>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step">1</div>
+      <div class="step">2</div>
+      <div class="step active">3</div>
+    </div>
+
+    <!-- Form -->
+    <form>
+      <!-- Contact Information -->
+      <div class="form-group">
+        <label for="email">E-mail*</label>
+        <input type="email" id="email" placeholder="example@mail.com">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">เบอร์โทร*</label>
+        <input type="text" id="phone" placeholder="0123456789">
+      </div>
+
+      <!-- Service Fee -->
+      <div class="form-group">
+        <label for="service-fee">การคิดค่าบริการ*</label>
+        <input type="text" id="service-fee" placeholder="ระบุค่าบริการ">
+      </div>
+
+      <!-- Service Area -->
+      <div class="form-group">
+        <label for="service-area">พื้นที่ให้บริการ*</label>
+        <div id="service-area-fields">
+          <div class="input-wrapper">
+            <select id="service-area">
+                <option value="bangkok">กรุงเทพมหานคร</option>
+                <option value="amnat-charoen">อำนาจเจริญ</option>
+                <option value="ang-thong">อ่างทอง</option>
+                <option value="ayutthaya">พระนครศรีอยุธยา</option>
+                <option value="bueng-kan">บึงกาฬ</option>
+                <option value="buriram">บุรีรัมย์</option>
+                <option value="chai-nat">ชัยนาท</option>
+                <option value="chaiyaphum">ชัยภูมิ</option>
+                <option value="chanthaburi">จันทบุรี</option>
+                <option value="chiang-mai">เชียงใหม่</option>
+                <option value="chiang-rai">เชียงราย</option>
+                <option value="chachoengsao">ฉะเชิงเทรา</option>
+                <option value="chonburi">ชลบุรี</option>
+                <option value="chumphon">ชุมพร</option>
+                <option value="kalasin">กาฬสินธุ์</option>
+                <option value="kamphaeng-phet">กำแพงเพชร</option>
+                <option value="kanchanaburi">กาญจนบุรี</option>
+                <option value="khon-kaen">ขอนแก่น</option>
+                <option value="krabi">กระบี่</option>
+                <option value="lopburi">ลพบุรี</option>
+                <option value="lampang">ลำปาง</option>
+                <option value="lamphun">ลำพูน</option>
+                <option value="loei">เลย</option>
+                <option value="maha-sarakham">มหาสารคาม</option>
+                <option value="mukdahan">มุกดาหาร</option>
+                <option value="nakhon-nayok">นครนายก</option>
+                <option value="nakhon-pathom">นครปฐม</option>
+                <option value="nakhon-phanom">นครพนม</option>
+                <option value="nakhon-ratchasima">นครราชสีมา</option>
+                <option value="nakhon-sawan">นครสวรรค์</option>
+                <option value="nakhon-si-thammarat">นครศรีธรรมราช</option>
+                <option value="nan">น่าน</option>
+                <option value="narathiwat">นราธิวาส</option>
+                <option value="nong-bua-lamphu">หนองบัวลำภู</option>
+                <option value="nong-khai">หนองคาย</option>
+                <option value="nonthaburi">นนทบุรี</option>
+                <option value="pathum-thani">ปทุมธานี</option>
+                <option value="pattani">ปัตตานี</option>
+                <option value="phang-nga">พังงา</option>
+                <option value="phatthalung">พัทลุง</option>
+                <option value="phayao">พะเยา</option>
+                <option value="phetchabun">เพชรบูรณ์</option>
+                <option value="phetchaburi">เพชรบุรี</option>
+                <option value="phichit">พิจิตร</option>
+                <option value="phitsanulok">พิษณุโลก</option>
+                <option value="phrae">แพร่</option>
+                <option value="phuket">ภูเก็ต</option>
+                <option value="prachinburi">ปราจีนบุรี</option>
+                <option value="prachuap-khiri-khan">ประจวบคีรีขันธ์</option>
+                <option value="ranong">ระนอง</option>
+                <option value="racha-buri">ราชบุรี</option>
+                <option value="rayong">ระยอง</option>
+                <option value="roi-et">ร้อยเอ็ด</option>
+                <option value="satun">สตูล</option>
+                <option value="sa-kaeo">สระแก้ว</option>
+                <option value="samut-prakan">สมุทรปราการ</option>
+                <option value="samut-songkhram">สมุทรสงคราม</option>
+                <option value="samut-sakhon">สมุทรสาคร</option>
+                <option value="saraburi">สระบุรี</option>
+                <option value="singburi">สิงห์บุรี</option>
+                <option value="sisaket">ศรีสะเกษ</option>
+                <option value="songkhla">สงขลา</option>
+                <option value="sukhothai">สุโขทัย</option>
+                <option value="suphanburi">สุพรรณบุรี</option>
+                <option value="surat-thani">สุราษฎร์ธานี</option>
+                <option value="surin">สุรินทร์</option>
+                <option value="tak">ตาก</option>
+                <option value="trang">ตรัง</option>
+                <option value="trat">ตราด</option>
+                <option value="udon-thani">อุดรธานี</option>
+                <option value="uthai-thani">อุทัยธานี</option>
+                <option value="uttaradit">อุตรดิตถ์</option>
+                <option value="yala">ยะลา</option>
+                <option value="yasothon">ยโสธร</option>
+                <option value="international">ต่างประเทศ</option>                  
+            </select>
+            <button type="button" class="add-btn" onclick="addField('service-area-fields', 'dropdown')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="form-group">
+        <label for="languages">ภาษาที่ให้บริการ*</label>
+        <div id="language-fields">
+          <div class="input-wrapper">
+            <select id="languages">
+              <option value="thai">ไทย</option>
+              <option value="english">English</option>
+              <option value="chinese">中文</option>
+            </select>
+            <button type="button" class="add-btn" onclick="addField('language-fields', 'dropdown')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button type="button" class="btn-submit">ย้อนกลับ</button>
+        <button type="submit" class="btn-submit">ถัดไป</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function addField(containerId, type) {
+      const container = document.getElementById(containerId);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'input-wrapper';
+
+      if (type === 'dropdown') {
+        const select = document.createElement('select');
+        select.innerHTML = containerId === 'service-area-fields'
+          ? `<option value="area1">กรุงเทพมหานคร</option><option value="area2">เชียงใหม่</option><option value="area3">ภูเก็ต</option>`
+          : `<option value="thai">ไทย</option><option value="english">English</option><option value="chinese">中文</option>`;
+        wrapper.appendChild(select);
+      }
+
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'add-btn';
+      addButton.innerText = '+';
+      addButton.onclick = () => addField(containerId, type);
+      wrapper.appendChild(addButton);
+
+      container.appendChild(wrapper);
+    }
+    function addField(containerId, type) {
+      const container = document.getElementById(containerId);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'input-wrapper';
+
+      if (type === 'dropdown') {
+        const select = document.createElement('select');
+        select.innerHTML = containerId === 'service-area-fields'
+          ? `<option value="bangkok">กรุงเทพมหานคร</option>
+             <option value="chiang-mai">เชียงใหม่</option>
+             <option value="phuket">ภูเก็ต</option>`
+          : `<option value="thai">ไทย</option>
+             <option value="english">English</option>
+             <option value="chinese">中文</option>`;
+        wrapper.appendChild(select);
+      }
+
+      // Add the '+' button
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'add-btn';
+      addButton.innerText = '+';
+      addButton.onclick = () => addField(containerId, type);
+      wrapper.appendChild(addButton);
+
+      // Add the '-' button (delete button)
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'delete-btn';
+      deleteButton.innerText = '-';
+      deleteButton.onclick = () => container.removeChild(wrapper);
+     wrapper.appendChild(deleteButton);
+
+      container.appendChild(wrapper);
+    }
+  </script>
+</body>
+</html>

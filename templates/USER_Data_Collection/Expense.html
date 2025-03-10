@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Add and Remove Fields with Navigation</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    /* Reset */
+* {
+  box-sizing: border-box;
+}
+
+/* General Body Styles */
+body {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+}
+
+.logo-container {
+  flex: 1;
+  text-align: left;
+}
+
+.home-container {
+  flex: 1;
+  text-align: right;
+}
+
+.btn-home {
+  background-color: #CF9B3E;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 15px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-home:hover {
+  background-color: #b38533;
+}
+
+/* Steps Navigation */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin-bottom: 30px;
+}
+
+.sub-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-items: center;
+  margin: 10px auto;
+  width: 77.5%;
+}
+
+.step {
+  text-align: center;
+}
+
+.step .circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #d9d9d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #000;
+  margin: 0 auto;
+}
+
+.step.active .circle {
+  background: #1f4f6b;
+  color: #fff;
+}
+
+/* Main Title */
+.main-topic {
+  text-align: center;
+  font-size: 24px;
+  color: #1f4f6b;
+  margin: 20px 0;
+}
+
+/* Section Titles */
+.sub-topic {
+  font-size: 22px;
+  font-weight: bold;
+  color: #CF9B3E;
+  margin: 40px 0 15px;
+  border-bottom: 2px solid #CF9B3E;
+  padding-bottom: 5px;
+}
+
+.sub-sub-topic {
+  font-size: 18px;
+  color: #1f4f6b;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* Form Groups */
+.form-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  flex-shrink: 0;
+  width: 250px;
+  font-size: 16px;
+  color: #1f4f6b;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  flex-grow: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #cf9b3e;
+}
+
+/* Dynamic Input Fields */
+/* Fix Input Fields in Input Rows */
+.input-row select {
+  flex: 1;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc; /* Match text input styling */
+  border-radius: 6px;
+  outline: none;
+  background-color: #fff;
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
+  appearance: none;
+  background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%231f4f6b" d="M2 0L0 2h4z"/></svg>') no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+}
+
+/* Ensure Focus Effect Matches Other Inputs */
+.input-row select option[disabled] {
+  color: #777;
+  font-style: italic;
+}
+
+/* Ensure Padding & Readability */
+.input-row select::placeholder {
+  color: #777;
+  font-style: italic;
+}
+.input-row input {
+  flex: 1;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc; /* Match form-group inputs */
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  background-color: #fff;
+}
+
+/* Ensure Focus Effect Matches Tax Inputs */
+.input-row input:focus {
+  border-color: #cf9b3e;
+}
+
+/* Match Placeholder Text */
+.input-row input::placeholder {
+  color: #777;
+  font-style: italic;
+}
+
+/* Align Input Fields Properly */
+.input-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.input-wrapper input {
+  flex: 1;
+}
+
+/* Add Section */
+.add-section {
+  padding: 20px;
+  border: 2px solid #1f4f6b;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Add & Delete Buttons */
+.add-button-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.add-button {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid #1F4F6B;
+  border-radius: 10px;
+  padding: 10px 20px;
+  color: #1F4F6B;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.add-button:hover {
+  background-color: #1F4F6B;
+  color: #FFFFFF;
+}
+
+.delete-btn {
+         background-color: #1f4f6b;
+         color: #fff;
+         border: none;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         font-size: 24px;
+         }
+         .delete-btn:hover {
+         background-color: #163d52;
+         }
+
+/* Buttons */
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.btn-submit {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid #1F4F6B;
+  border-radius: 10px;
+  color: #1F4F6B;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-submit:hover {
+  background-color: #1F4F6B;
+  color: #FFFFFF;
+}
+
+.btn-save {
+  display: inline-block;
+  background-color: transparent;
+  color: #1F4F6B;
+  border: 1px solid #1F4F6B;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.btn-save:hover {
+  background-color: #1F4F6B;
+  color: #FFFFFF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 15px;
+  }
+  .steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn-submit {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+      <div class="header">
+          <div class="logo-container">
+            <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+          </div>
+          <div class="home-container">
+            <button class="btn-home">หน้าหลัก</button>
+          </div>
+        </div>
+        <div class="main-topic-container">
+          <h1 class="main-topic">กรุณาตอบคำถามเพื่อการวางแผนการเงิน</h1>
+        </div>
+
+
+<div class="steps">
+  <div class="step">
+    <div class="circle"style="background:  #d9d9d9;">1</div>
+    <div class="label">ข้อมูลส่วนตัว</div>
+  </div>
+  <div class="step">
+    <div class="circle"style="background: #d9d9d9;">2</div>
+    <div class="label">ข้อมูลการทำงาน</div>
+  </div>
+  <div class="step">
+    <div class="circle"style="background: #d9d9d9;">3</div>
+    <div class="label">ทรัพย์สิน</div>
+  </div>
+  <div class="step">
+    <div class="circle">4</div>
+    <div class="label">หนี้สิน</div>
+  </div>
+</div>
+      
+<div class="sub-steps">
+  <div class="step">
+    <div class="circle"style="background:  #d9d9d9;">5</div>
+    <div class="label">รายรับ</div>
+  </div>
+  <div class="step">
+    <div class="circle"style="background:  #cf9b3e;">6</div>
+    <div class="label">รายจ่าย</div>
+  </div>
+  <div class="step">
+    <div class="circle">7</div>
+    <div class="label">การจัดการความเสี่ยง</div>
+  </div>
+</div>
+      
+
+<div class="main-topic">6. รายจ่ายต่อปี (ไม่มีกรุณาปล่อยว่าง)</div>
+<div>
+  
+<!-- Fixed Expenses -->
+<p class="sub-topic">กระแสเงินสดจ่ายคงที่/เงินงวดผ่อนชำระคืนหนี้</p>
+<div class="add-section">
+  <label class="sub-sub-topic">เงินที่ต้องจ่ายเท่าๆกันทุกเดือน/ปี เช่น ค่าห้อง ค่าผ่อนรถ ฯลฯ</label>
+  <div id="fixed-expense-container" class="input-data">
+    <!-- Static Field (No Delete Button) -->
+    <div class="input-row">
+      <input type="text" id="fix_cf_name_1" name="fix_cf_name[]" placeholder="ชื่อ">
+      <input type="number" id="fix_cf_value_1" name="fix_cf_value[]" placeholder="มูลค่าผ่อน/จ่ายปีละ">
+      <input type="hidden" id="var_cf_value_name" name="fix_cf_mode[]" value="fix">
+    </div>
+  </div>
+  <div class="add-button-container">
+    <button class="add-button" onclick="addRow('fixed-expense-container')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+  </div>
+</div>
+
+<!-- Insurance -->
+<p class="sub-topic">เบี้ยประกัน</p>
+<div class="add-section">
+  <label class="sub-sub-topic">ชนิดประกัน</label>
+  <div id="insurance-container" class="input-data">
+    <!-- Changed from input to select -->
+    <div class="input-row">
+      <select id="insurance_name_1" name="fix_cf_name[]">
+        <option value="" disabled selected>กรุณาเลือก</option>
+        <option value="life_insurance">ประกันชีวิต</option>
+        <option value="car_insurance">ประกันรถยนต์</option>
+        <option value="home_insurance">ประกันบ้าน</option>
+        <option value="social security">ประกันสังคม</option>
+        <option value="Provident fund savings">เงินสะสมกองทุนสำรองเลี้ยงชีพ</option>
+      </select>
+      <input type="number" id="insurance_value_1" name="fix_cf_value[]" placeholder="ผ่อน/จ่ายปีละ">
+      <input type="hidden" id="var_cf_value_name" name="fix_cf_mode[]" value="insurance">
+    </div>
+  </div>
+  <div class="add-button-container">
+    <button class="add-button" onclick="addRow('insurance-container')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+  </div>
+</div>
+
+<!-- Variable Expenses -->
+<p class="sub-topic">กระแสเงินสดจ่ายผันแปร</p>
+<div class="add-section">
+  <label class="sub-sub-topic">เงินที่แต่ละเดือน/ปีจ่ายไม่เท่ากันและไม่สามารถคาดเดาค่าใช้จ่ายแบบแน่นอนได้</label>
+  <div id="variable-expense-container" class="input-data">
+    <!-- Changed from input to select -->
+    <div class="input-row">
+      <select id="var_cf_name_1" name="fix_cf_name[]">
+        <option value="" disabled selected>กรุณาเลือก</option>
+        <option value="food_expense">ค่าอาหาร</option>
+        <option value="utility_expense">ค่าใช้จ่ายสาธารณูปโภค</option>
+        <option value="telephone_charge">ค่าโทรศัพท์</option>
+        <option value="medical_expense">ค่ารักษาพยาบาล</option>
+        <option value="Monthly expenses for family members or pets">ค่าใช้จ่ายให้คนในครอบครัวหรือสัตว์เลี้ยงต่อเดือน</option>
+        <option value="Other expenses">ค่าใช้จ่ายอื่น ๆ</option>
+      </select>
+      <input type="hidden" id="var_cf_value_name" name="fix_cf_mode[]" value="var">
+      <input type="number" id="var_cf_value_1" name="fix_cf_value[]" placeholder="ผ่อน/จ่ายปีละ">
+    </div>
+  </div>
+  <div class="add-button-container">
+    <button class="add-button" onclick="addRow('variable-expense-container')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+  </div>
+</div>
+
+<!-- Tax Section -->
+<div class="sub-topic">ภาษี</div>
+<div class="form-group">
+  <label class="sub-sub-topic">ภาษีเงินได้บุคคลธรรมดา</label>
+  <input type="number" name="tax_income" id="tax_income" placeholder="จ่ายปีละ">
+</div>
+<div class="form-group">
+  <label class="sub-sub-topic">รายจ่ายภาษีอื่น ๆ</label>
+  <input type="number" name="tax_other" id="tax_other" placeholder="จ่ายปีละ">
+</div>
+
+        <!-- Buttons -->
+        <div class="btn-container">
+            <button type="button" class="btn-submit">ย้อนกลับ</button>
+            <button type="submit" class="btn-submit" onclick="saveData()">ถัดไป</button>
+            
+        </div>
+      </div>
+</div> <!-- Closing .container -->
+
+    <script>
+
+
+function saveData() {
+            let inputRows = document.querySelectorAll(".input-data"); 
+            let data = [];
+            let rowDataFix = []; 
+
+            
+            inputRows.forEach(row => {
+               let rowData = {};
+
+               let inputs = row.querySelectorAll("input, select");
+
+               inputs.forEach(input => {
+                  let name = input.name.replace(/\[\]$/, ""); 
+                  rowData[name] = input.value.trim(); 
+               });
+
+               data.push(rowData); 
+            });
+
+
+            tax_income = document.getElementById("tax_income").value; 
+            tax_other = document.getElementById("tax_other").value;
+            let jsonData = {
+               "tax_income" : tax_income,
+               "tax_other" : tax_other,
+               "data" : data
+            }
+            
+            rowDataFix.push(jsonData)
+
+            console.log("JSON Data:", JSON.stringify(rowDataFix, null, 2)); 
+            
+            console.log("Saved Data:", rowDataFix); 
+
+            Swal.fire({
+               title: "คุณแน่ใจใช่ไหม",
+               text: "ระบบจะทำการบันทึกข้อมูลทั้งหมด",
+               icon: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#3085d6",
+               cancelButtonColor: "#d33",
+               confirmButtonText: "บันทึก",
+               cancelButtonText: "ยกเลิก"
+               }).then((result) => {
+               if (result.isConfirmed) {
+                  Swal.fire({
+                     title: "บันทึกสำเร็จ!",
+                     text: "ข้อมูลได้บันทึกสำเร็จ",
+                     icon: "success"
+                  }).then((result) => {
+                     fetch("/UserDataCollection/Expense", {
+                           method: "POST",
+                           headers: {
+                              "Content-Type": "application/json",
+                           },
+                           body: JSON.stringify(rowDataFix), 
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                           // alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!');
+                          window.location.href = "/UserDataCollection/Risk1";
+                        })
+                        .catch(error => {
+                           console.error("Error saving data:", error);
+                           alert("Error saving data. Please try again.");
+                        });
+                  })
+               }
+               });
+            }
+  
+      function removeField(button) {
+        button.parentElement.remove();
+        remapIds(); // Ensure IDs are sequential after deletion
+      }
+    
+      
+  function addRow(containerId) {
+    const container = document.getElementById(containerId);
+
+    // Find the smallest missing index for this specific container
+    let existingIndexes = Array.from(container.querySelectorAll("input, select"))
+      .map(input => parseInt(input.id.split("_").pop()))
+      .filter(num => !isNaN(num));
+
+    let newIndex = existingIndexes.length ? Math.max(...existingIndexes) + 1 : 2; // Ensure new fields start at index 2
+
+    // Create a new input row container
+    const newFieldset = document.createElement("div");
+    newFieldset.className = "input-row dynamic-fields";
+
+    let fields = [];
+    if (containerId === "fixed-expense-container") {
+      fields = [
+        { type: "text", placeholder: "ชื่อ", name: "fix_cf_name[]" },
+        { type: "number", placeholder: "มูลค่าผ่อน/จ่ายปีละ", name: "fix_cf_value[]" }
+      ];
+    } else if (containerId === "insurance-container") {
+      fields = [
+        {
+          type: "select",
+          name: "insurance_name[]",
+          options: [
+            { value: "", text: "กรุณาเลือก", disabled: true, selected: true },
+            { value: "life_insurance", text: "ประกันชีวิต" },
+            { value: "car_insurance", text: "ประกันรถยนต์" },
+            { value: "home_insurance", text: "ประกันบ้าน" },
+            { value: "social security", text: "ประกันสังคม" },
+            { value: "Provident fund savings", text: "เงินสะสมกองทุนสำรองเลี้ยงชีพ" }
+          ]
+        },
+        { type: "number", placeholder: "ผ่อน/จ่ายปีละ", name: "insurance_value[]" }
+      ];
+    } else if (containerId === "variable-expense-container") {
+      fields = [
+        {
+          type: "select",
+          name: "var_cf_name[]",
+          options: [
+            { value: "", text: "กรุณาเลือก", disabled: true, selected: true },
+            { value: "food_expense", text: "ค่าอาหาร" },
+            { value: "utility_expense", text: "ค่าใช้จ่ายสาธารณูปโภค" },
+            { value: "telephone_charge", text: "ค่าโทรศัพท์" },
+            { value: "medical_expense", text: "ค่ารักษาพยาบาล" },
+            { value: "Monthly expenses for family members or pets", text: "ค่าใช้จ่ายให้คนในครอบครัวหรือสัตว์เลี้ยงต่อเดือน" },
+            { value: "Other expenses", text: "ค่าใช้จ่ายอื่น ๆ" }
+          ]
+        },
+        { type: "number", placeholder: "ผ่อน/จ่ายปีละ", name: "var_cf_value[]" }
+      ];
+    }
+
+    fields.forEach((field) => {
+      let input;
+      if (field.type === "select") {
+        input = document.createElement("select");
+        input.name = `${field.name}`;
+        input.id = `${field.name}_${newIndex}`;
+        field.options.forEach(optionData => {
+          let option = document.createElement("option");
+          option.value = optionData.value;
+          option.textContent = optionData.text;
+          if (optionData.disabled) option.disabled = true;
+          if (optionData.selected) option.selected = true;
+          input.appendChild(option);
+        });
+      } else {
+        input = document.createElement("input");
+        input.type = field.type;
+        input.placeholder = field.placeholder;
+        input.name = `${field.name}`;
+        input.id = `${field.name}_${newIndex}`;
+      }
+      input.required = true;
+      newFieldset.appendChild(input);
+    });
+
+    // Add delete button only for dynamically added fields
+    const deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.className = "delete-btn";
+    deleteButton.textContent = "-";
+    deleteButton.onclick = function () {
+      removeField(this);
+      remapIds(containerId);
+    };
+    newFieldset.appendChild(deleteButton);
+
+    // Append new row to container
+    container.appendChild(newFieldset);
+  }
+    
+      function remapIds(containerId) {
+        let container = document.getElementById(containerId);
+        let rows = container.querySelectorAll(".dynamic-fields");
+        let index = 2; // Start re-indexing from 2 to keep the static field at 1
+    
+        rows.forEach(row => {
+          let inputs = row.querySelectorAll("input");
+    
+          inputs.forEach(input => {
+            let baseName = input.name.replace(/_\d+$/, ""); // Remove old number
+            input.name = `${baseName}_${index}`; // Assign new sequential number
+            input.id = `${baseName}_${index}`;
+          });
+    
+          index++; // Increment for next row
+        });
+      }
+    </script>
+    
+  
+</body>
+</html>

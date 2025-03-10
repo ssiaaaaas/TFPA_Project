@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ยินดีต้อนรับ CFP</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background-color: #FFFFFF;
+      color: #1F4F6B;
+    }
+
+    /* Main Container */
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .header .logo {
+      height: 40px;
+    }
+
+    .header .home-button {
+      background-color: #CF9B3E;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .header .home-button:hover {
+      background-color: #b38533;
+    }
+
+    /* Page Title */
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .form-group {
+      width: 60%;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #CF9B3E;
+    }
+
+    /* "ยังไม่ได้ลงทะเบียน" link */
+    .register-link {
+      text-align: center;
+      margin-top: -10px;
+      font-size: 14px;
+    }
+
+    .register-link a {
+      color: #1F4F6B;
+      text-decoration: none;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Button Container */
+    .button-container {
+      width: 60%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #1F4F6B;
+      border-radius: 10px;
+      color: #1F4F6B;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #1F4F6B;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+      <a href="/" class="home-button">หน้าหลัก</a>
+    </div>
+
+    <!-- Page Title -->
+    <h1>ยินดีต้อนรับคุณลูกค้า</h1>
+
+    <!-- Form -->
+     <center>
+      <form action="" method="POST">
+      <div class="form-group">
+        <label for="cfp-code">E-mail*</label>
+        <input type="text" id="cfp-code" name="crm_user" placeholder="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password*</label>
+        <input type="password" id="password" name="crm_pass" placeholder="password">
+      </div>
+
+      <!-- Button Container -->
+      <div class="button-container">
+        <button type="button" class="btn" onclick="history.back()">ย้อนกลับ</button>
+        <a href="/CRM/Dashboard"><button type="submit" class="btn">ถัดไป</button></a> 
+      </div>
+    </form>
+    </center>
+  </div>
+</body>
+</html>

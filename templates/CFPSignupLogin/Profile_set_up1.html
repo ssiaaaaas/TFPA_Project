@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFP Profile Creation</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background-color: #FFFFFF;
+      color: #1F4F6B;
+    }
+
+    /* Container */
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .btn-home {
+      background-color: #CF9B3E;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 15px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-home:hover {
+      background-color: #b38533;
+    }
+
+    /* Title Section */
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    /* Steps Section */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      width: 80px;
+      height: 80px;
+      background-color: #D9D9D9;
+      border-radius: 50%;
+      line-height: 80px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin: 0 10px;
+    }
+
+    .step.active {
+      background-color: #1F4F6B;
+    }
+
+    /* Form Styling */
+    .form-group {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    label, legend {
+      font-family: 'Sarabun', sans-serif;}
+      
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: calc(100% - 50px);
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #cf9b3e;
+    }
+    input[list="universities"] {
+      width: calc(100% - 50px); /* Matches the select width */
+      padding: 12px; /* Matches the padding of the select */
+      font-size: 14px; /* Matches the font size of the select */
+      border: 1px solid #ccc; /* Matches the border of the select */
+      border-radius: 8px; /* Matches the border-radius of the select */
+      outline: none; /* Removes the default outline */
+      transition: border-color 0.3s; /* Adds a smooth transition for focus effect */
+    }
+
+    input[list="universities"]:focus {
+      border-color: #cf9b3e; /* Matches the focus color of the select */
+    }
+    .add-btn {
+      background-color: #1f4f6b;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .add-btn:hover {
+      background-color: #163d52;
+    }
+
+    .delete-btn {
+      background-color: #1f4f6b;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    .delete-btn:hover {
+      background-color: #163d52;
+    }
+
+    .btn-submit {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #1F4F6B;
+      border-radius: 10px;
+      color: #1F4F6B;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #1F4F6B;
+      color: #FFFFFF;
+    }
+    .btn-save {
+  display: inline-block;
+  background-color: transparent;
+  color: #1F4F6B;
+  border: 1px solid #1F4F6B;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px; /* Space between buttons */
+}
+
+.btn-save:hover {
+  background-color:  #1F4F6B;
+  color: #FFFFFF;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+      <button class="btn-home">หน้าหลัก</button>
+    </div>
+
+    <h1>CFP สร้างโปรไฟล์</h1>
+
+    <div class="steps">
+      <div class="step active">1</div>
+      <div class="step">2</div>
+      <div class="step">3</div>
+    </div>
+
+    <form>
+      <div class="form-group">
+        <label for="fullname">ชื่อ-สกุล*</label>
+        <input type="text" id="fullname" placeholder="คำตอบ">
+      </div>
+
+      <div class="form-group">
+        <label for="gender">เพศ*</label>
+        <select id="gender">
+          <option value="male">ชาย</option>
+          <option value="female">หญิง</option>
+          <option value="other">อื่น ๆ</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="birthdate">วันเดือนปีเกิด*</label>
+        <input type="date" id="birthdate">
+      </div>
+
+      <div class="form-group">
+        <label for="education">ระดับการศึกษาสูงสุด*</label>
+        <select id="education">
+          <option value="primary">ประถมศึกษา</option>
+          <option value="secondary">มัธยมศึกษา</option>
+          <option value="bachelor">ปริญญาตรี</option>
+          <option value="master">ปริญญาโท</option>
+          <option value="doctorate">ปริญญาเอก</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="university">ชื่อมหาวิทยาลัย</label>
+        <input list="universities" id="university" name="university" placeholder="กรุณาเลือก" />
+        <datalist id="universities">
+          <option value="Mahidol University">มหาวิทยาลัยมหิดล</option>
+          <option value="Chulalongkorn University">จุฬาลงกรณ์มหาวิทยาลัย</option>
+          <option value="Chiang Mai University">มหาวิทยาลัยเชียงใหม่</option>
+          <option value="Prince of Songkla University">มหาวิทยาลัยสงขลานครินทร์</option>
+          <option value="Kasetsart University">มหาวิทยาลัยเกษตรศาสตร์</option>
+          <option value="Thammasat University">มหาวิทยาลัยธรรมศาสตร์</option>
+          <option value="Khon Kaen University">มหาวิทยาลัยขอนแก่น</option>
+          <option value="Ramkhamhaeng University">มหาวิทยาลัยรามคำแหง</option>
+          <option value="Asian Institute of Technology">สถาบันเทคโนโลยีแห่งเอเชีย</option>
+          <option value="Suan Sunandha Rajabhat University">มหาวิทยาลัยราชภัฏสวนสุนันทา</option>
+          <option value="King Mongkut's Institute of Technology Ladkrabang">สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง</option>
+          <option value="King Mongkut's University of Technology Thonburi">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าธนบุรี</option>
+          <option value="Burapha University">มหาวิทยาลัยบูรพา</option>
+          <option value="Silpakorn University">มหาวิทยาลัยศิลปากร</option>
+          <option value="Naresuan University">มหาวิทยาลัยนเรศวร</option>
+          <option value="Srinakharinwirot University">มหาวิทยาลัยศรีนครินทรวิโรฒ</option>
+          <option value="Suranaree University of Technology">มหาวิทยาลัยเทคโนโลยีสุรนารี</option>
+          <option value="Mahasarakham University">มหาวิทยาลัยมหาสารคาม</option>
+          <option value="Mahachulalongkornrajavidyalaya University">มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย</option>
+          <option value="Walailak University">มหาวิทยาลัยวลัยลักษณ์</option>
+          <option value="King Mongkut's University of Technology North Bangkok">มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</option>
+          <option value="Ubon Ratchathani University">มหาวิทยาลัยอุบลราชธานี</option>
+          <option value="Assumption University">มหาวิทยาลัยอัสสัมชัญ</option>
+          <option value="Sripatum University">มหาวิทยาลัยศรีปทุม</option>
+          <option value="Maejo University">มหาวิทยาลัยแม่โจ้</option>
+          <option value="Rajamangala University of Technology Thanyaburi">มหาวิทยาลัยเทคโนโลยีราชมงคลธัญบุรี</option>
+          <option value="Rangsit University">มหาวิทยาลัยรังสิต</option>
+          <option value="Bangkok University">มหาวิทยาลัยกรุงเทพ</option>
+          <option value="Nakhon Ratchasima Rajabhat University">มหาวิทยาลัยราชภัฏนครราชสีมา</option>
+          <option value="Rajamangala University of Technology Isarn">มหาวิทยาลัยเทคโนโลยีราชมงคลอีสาน</option>
+          <option value="National Institute of Development Administration">สถาบันบัณฑิตพัฒนบริหารศาสตร์</option>
+          <option value="Yala Rajabhat University">มหาวิทยาลัยราชภัฏยะลา</option>
+          <option value="Suan Dusit University">มหาวิทยาลัยสวนดุสิต</option>
+          <option value="Thaksin University">มหาวิทยาลัยทักษิณ</option>
+          <option value="Mae Fah Luang University">มหาวิทยาลัยแม่ฟ้าหลวง</option>
+          <option value="University of the Thai Chamber of Commerce">มหาวิทยาลัยหอการค้าไทย</option>
+          <option value="Stamford International University">มหาวิทยาลัยนานาชาติแสตมฟอร์ด</option>
+          <option value="Chiang Mai Rajabhat University">มหาวิทยาลัยราชภัฏเชียงใหม่</option>
+          <option value="Dhurakij Pundit University">มหาวิทยาลัยธุรกิจบัณฑิตย์</option>
+          <option value="Lampang Rajabhat University">มหาวิทยาลัยราชภัฏลำปาง</option>
+          <option value="Rajamangala University of Technology Lanna">มหาวิทยาลัยเทคโนโลยีราชมงคลล้านนา</option>
+          <option value="Chiang Rai Rajabhat University">มหาวิทยาลัยราชภัฏเชียงราย</option>
+          <option value="Bansomdejchaopraya Rajabhat University">มหาวิทยาลัยราชภัฏบ้านสมเด็จเจ้าพระยา</option>
+          <option value="Rajamangala University of Technology Phra Nakhon">มหาวิทยาลัยเทคโนโลยีราชมงคลพระนคร</option>
+          <option value="Chandrakasem Rajabhat University">มหาวิทยาลัยราชภัฏจันทรเกษม</option>
+          <option value="Huachiew Chalermprakiet University">มหาวิทยาลัยหัวเฉียวเฉลิมพระเกียรติ</option>
+          <option value="Buriram Rajabhat University">มหาวิทยาลัยราชภัฏบุรีรัมย์</option>
+          <option value="University of Phayao">มหาวิทยาลัยพะเยา</option>
+          <option value="Kamphaeng Phet Rajabhat University">มหาวิทยาลัยราชภัฏกำแพงเพชร</option>
+          <option value="Nakhon Pathom Rajabhat University">มหาวิทยาลัยราชภัฏนครปฐม</option>
+          <option value="Siam University">มหาวิทยาลัยสยาม</option>
+          <option value="Phetchaburi Rajabhat University">มหาวิทยาลัยราชภัฏเพชรบุรี</option>
+          <option value="Rajamangala University of Technology Srivijaya">มหาวิทยาลัยเทคโนโลยีราชมงคลศรีวิชัย</option>
+          <option value="Udon Thani Rajabhat University">มหาวิทยาลัยราชภัฏอุดรธานี</option>
+          <option value="Payap University">มหาวิทยาลัยพายัพ</option>
+          <option value="Songkhla Rajabhat University">มหาวิทยาลัยราชภัฏสงขลา</option>
+          <option value="Ubon Ratchathani Rajabhat University">มหาวิทยาลัยราชภัฏอุบลราชธานี</option>
+          <option value="Suratthani Rajabhat University">มหาวิทยาลัยราชภัฏสุราษฎร์ธานี</option>
+          <option value="Rajamangala University of Technology Krungthep">มหาวิทยาลัยเทคโนโลยีราชมงคลกรุงเทพ</option>
+          <option value="Rajamangala University of Technology Tawan-ok">มหาวิทยาลัยเทคโนโลยีราชมงคลตะวันออก</option>
+          <option value="North Eastern University">มหาวิทยาลัยภาคตะวันออกเฉียงเหนือ</option>
+          <option value="Mahanakorn University of Technology">มหาวิทยาลัยเทคโนโลยีมหานคร</option>
+          <option value="Rajanagarindra Rajabhat University">มหาวิทยาลัยราชภัฏราชนครินทร์</option>
+          <option value="Pibulsongkram Rajabhat University">มหาวิทยาลัยราชภัฏพิบูลสงคราม</option>
+          <option value="Rajabhat Maha Sarakham University">มหาวิทยาลัยราชภัฏมหาสารคาม</option>
+          <option value="Valaya Alongkorn Rajabhat University">มหาวิทยาลัยราชภัฏวไลยอลงกรณ์</option>
+          <option value="Sakon Nakhon Rajabhat University">มหาวิทยาลัยราชภัฏสกลนคร</option>
+          <option value="Kasem Bundit University">มหาวิทยาลัยเกษมบัณฑิต</option>
+          <option value="Rajamangala University of Technology Rattanakosin">มหาวิทยาลัยเทคโนโลยีราชมงคลรัตนโกสินทร์</option>
+          <option value="Kalasin University">มหาวิทยาลัยกาฬสินธุ์</option>
+          <option value="Phuket Rajabhat University">มหาวิทยาลัยราชภัฏภูเก็ต</option>
+          <option value="Rambhai Barni Rajabhat University">มหาวิทยาลัยราชภัฏรำไพพรรณี</option>
+          <option value="Muban Chombueng Rajabhat University">มหาวิทยาลัยราชภัฏหมู่บ้านจอมบึง</option>
+          <option value="Nakhon Sawan Rajabhat University">มหาวิทยาลัยราชภัฏนครสวรรค์</option>
+          <option value="Mahamakut Buddhist University">มหาวิทยาลัยมหามกุฏราชวิทยาลัย</option>
+          <option value="Rajamangala University of Technology Suvarnabhumi">มหาวิทยาลัยเทคโนโลยีราชมงคลสุวรรณภูมิ</option>
+          <option value="Surindra Rajabhat University">มหาวิทยาลัยราชภัฏสุรินทร์</option>
+          <option value="Nakhon Phanom University">มหาวิทยาลัยนครพนม</option>
+          <option value="Chulabhorn Royal Academy">ราชวิทยาลัยจุฬาภรณ์</option>
+          <option value="Phranakhon Rajabhat University">มหาวิทยาลัยราชภัฏพระนคร</option>
+          <option value="Western University">มหาวิทยาลัยเวสเทิร์น</option>
+          <option value="Fatoni University">มหาวิทยาลัยฟาฏอนี</option>
+          <option value="Dhonburi Rajabhat University">มหาวิทยาลัยราชภัฏธนบุรี</option>
+          <option value="Sisaket Rajabhat University">มหาวิทยาลัยราชภัฏศรีสะเกษ</option>
+          <option value="Nakhon Si Thammarat Rajabhat University">มหาวิทยาลัยราชภัฏนครศรีธรรมราช</option>
+          <option value="Phranakhon Si Ayutthaya Rajabhat University">มหาวิทยาลัยราชภัฏพระนครศรีอยุธยา</option>
+          <option value="Chaiyaphum Rajabhat University">มหาวิทยาลัยราชภัฏชัยภูมิ</option>
+          <option value="Loei Rajabhat University">มหาวิทยาลัยราชภัฏเลย</option>
+          <option value="Krirk University">มหาวิทยาลัยเกริก</option>
+          <option value="Phetchabun Rajabhat University">มหาวิทยาลัยราชภัฏเพชรบูรณ์</option>
+          <option value="Bangkok Thonburi University">มหาวิทยาลัยกรุงเทพธนบุรี</option>
+          <option value="Kanchanaburi Rajabhat University">มหาวิทยาลัยราชภัฏกาญจนบุรี</option>
+          <option value="Hatyai University">มหาวิทยาลัยหาดใหญ่</option>
+          <option value="Thepsatri Rajabhat University">มหาวิทยาลัยราชภัฏเทพสตรี</option>
+          <option value="Princess Galyani Vadhana Institute of Music">สถาบันดนตรีกัลยาณิวัฒนา</option>
+          <option value="Princess of Naradhiwas University">มหาวิทยาลัยนราธิวาสราชนครินทร์</option>
+          <option value="Uttaradit Rajabhat University">มหาวิทยาลัยราชภัฏอุตรดิตถ์</option>
+          <option value="Christian University of Thailand">มหาวิทยาลัยคริสเตียน</option>
+          <option value="Roi-et Rajabhat University">มหาวิทยาลัยราชภัฏร้อยเอ็ด</option>
+          <option value="South-East Asia University">มหาวิทยาลัยเอเชียอาคเนย์</option>
+          <option value="Thonburi University">มหาวิทยาลัยธนบุรี</option>
+          <option value="Vongchavalitkul University">มหาวิทยาลัยวงษ์ชวลิตกุล</option>
+          <option value="Rajapruk University">มหาวิทยาลัยราชพฤกษ์</option>
+          <option value="The Far Eastern University">มหาวิทยาลัยฟาร์อีสเทิร์น</option>
+          <option value="Asia-Pacific International University">มหาวิทยาลัยนานาชาติเอเชียแปซิฟิก</option>
+          <option value="Rattana Bundit University">มหาวิทยาลัยรัตนบัณฑิต</option>
+          <option value="Navamindradhiraj University">มหาวิทยาลัยนวมินทราธิราช</option>
+          <option value="Eastern Asia University">มหาวิทยาลัยอีสเทิร์นเอเชีย</option>
+          <option value="Ratchathani University">มหาวิทยาลัยราชธานี</option>
+          <option value="Chalermkarnchana University">มหาวิทยาลัยเฉลิมกาญจนา</option>
+          <option value="North Bangkok University">มหาวิทยาลัยนอร์ทกรุงเทพ</option>
+          <option value="North Chiang Mai University">มหาวิทยาลัยนอร์ท-เชียงใหม่</option>
+          <option value="Pathumwan Institute of Technology">สถาบันเทคโนโลยีปทุมวัน</option>
+          <option value="Shinawatra University">มหาวิทยาลัยชินวัตร</option>
+          <option value="Nation University">มหาวิทยาลัยเนชั่น</option>
+          <option value="Pathumthani University">มหาวิทยาลัยปทุมธานี</option>
+          <option value="Chaopraya University">มหาวิทยาลัยเจ้าพระยา</option>
+          <option value="The Eastern University of Management and Technology">มหาวิทยาลัยบูรพาการจัดการและเทคโนโลยี</option>
+          <option value="Tapee University">มหาวิทยาลัยตาปี</option>
+          <option value="Saint John's University">มหาวิทยาลัยเซนต์จอห์น</option>
+          <option value="Bangkok Suvarnabhumi University">มหาวิทยาลัยกรุงเทพสุวรรณภูมิ</option>
+          <option value="The University of Central Thailand">มหาวิทยาลัยเซ็นทรัลประเทศไทย</option>
+          <option value="Phitsanulok University">มหาวิทยาลัยพิษณุโลก</option>
+          <!-- Add more universities here -->
+        </datalist>
+      </div>
+      
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button type="button" class="btn-submit">ย้อนกลับ</button>
+        <button type="button" class="btn-submit btn-save" onclick="saveData()">บันทึก</button>
+        <button type="submit" class="btn-submit">ถัดไป</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function addField(containerId, type) {
+      const container = document.getElementById(containerId);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'input-wrapper';
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'คำตอบ';
+      wrapper.appendChild(input);
+
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'add-btn';
+      addButton.innerText = '+';
+      addButton.onclick = () => addField(containerId, type);
+      wrapper.appendChild(addButton);
+
+      if (container.children.length > 0) { // Show delete button for additional fields
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'delete-btn';
+        deleteButton.innerText = '-';
+        deleteButton.onclick = () => container.removeChild(wrapper);
+        wrapper.appendChild(deleteButton);
+      }
+
+      container.appendChild(wrapper);
+    }
+
+
+    function removeField(button) {
+      button.parentElement.remove();
+    }
+  </script>
+  <script>
+    function saveData() {
+      alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!'); // Replace with actual save logic
+    }
+  </script>
+</body>
+</html>

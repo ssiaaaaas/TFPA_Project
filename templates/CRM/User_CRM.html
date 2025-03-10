@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Planner Profile</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background-color: #cf9b3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10; /* Ensure it stays above all other elements */
+        }
+
+        .home-button:hover {
+            background-color: #b98633;
+        }
+
+        .container {
+            width: 90%;
+            margin: 80px auto 20px; /* Top margin added to account for the fixed button */
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            gap: 20px;
+        }
+
+        .profile-sidebar {
+            width: 300px;
+            background-color: #043275;
+            border-radius: 10px;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-sidebar h3 {
+            font-size: 20px;
+            color: #f9f5ce;
+            margin-bottom: 20px;
+        }
+
+        .profile-sidebar button {
+            background-color: #cf9b3e;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .profile-sidebar button:hover {
+            background-color: #b98633;
+        }
+
+        .profile-details {
+            flex: 1;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
+        }
+
+        .profile-details.active {
+            display: block; /* Show when content is loaded */
+        }
+
+        .profile-details-header {
+            font-size: 20px;
+            color: #043275;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .profile-details iframe {
+            width: 100%;
+            height: auto;
+            border: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Home Button -->
+    <button class="home-button" onclick="window.location.href='/'">หน้าหลัก</button>
+
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="profile-sidebar">
+            <h3>คุณ {{ user.name}}</h3>
+            <button onclick="loadContent('CFP_Profile')">ติดต่อ CFP</button>
+            <a href="/UserDataCollection/Edit/User_Personal_info2"> <button >แก้ไขข้อมูล</button></a>
+            <button onclick="loadContent('User_Dashboard1')">ข้อมูลภาพรวม 1</button>
+            <button onclick="loadContent('User_Dashboard2')">ข้อมูลภาพรวม 2</button>
+            <button onclick="loadContent('User_Dashboard3')">ข้อมูลภาพรวม 3</button>
+            <a href="/CRM/Dashboard/DownloadCashFlows?id={{ user.id}}"><button>ดาวโหลด XLSX 1</button></a>
+            <a href="/CRM/Dashboard/DownloadFinStatement?id={{ user.id}}"><button>ดาวโหลด XLSX 2</button></a>
+        </div>
+
+        
+
+        <!-- Right Section (Initially Blank) -->
+        <div class="profile-details" id="profile-details">
+            <div id="dynamic-header" class="profile-details-header"></div>
+            <iframe id="dynamic-content" src="" onload="resizeIframe(this)"></iframe>
+        </div>
+    </div>
+
+    <script>
+        start()
+        function start(){
+            const iframe = document.getElementById('dynamic-content');
+            const header = document.getElementById('dynamic-header');
+            const profileDetails = document.getElementById('profile-details');
+            iframe.src = "/CRM/Dashboard/dashboard1?id={{ user.id}}"; 
+            header.textContent = "รายละเอียดผู้ใช้งาน";
+            profileDetails.classList.add('active'); 
+        }
+        
+        
+        function loadContent(page) {
+            const iframe = document.getElementById('dynamic-content');
+            const profileDetails = document.getElementById('profile-details');
+            const header = document.getElementById('dynamic-header');
+
+            if (page === 'CFP_Profile') {
+                iframe.src = ""; 
+                header.textContent = "นักวางแผนการเงินที่กำลังติดต่ออยู่ขณะนี้";
+            } else if (page === 'User_Dashboard1') {
+                iframe.src = "/CRM/Dashboard/dashboard1?id={{ user.id}}"; 
+                header.textContent = "รายงานการดำเนินงาน";
+            } else if (page === 'User_Dashboard2') {
+                iframe.src = "/CRM/Dashboard/dashboard2?id={{ user.id}}"; 
+                header.textContent = "รายงานการดำเนินงาน";
+            } else if (page === 'User_Dashboard3') {
+                iframe.src = "/CRM/Dashboard/dashboard3?id={{ user.id}}"; 
+                header.textContent = "รายงานการดำเนินงาน";
+            } else if (page === 'table_1') {
+                iframe.src = "/CRM/Dashboard/dashboard3?id={{ user.id}}"; 
+                header.textContent = "รายงานการดำเนินงาน";
+            } else if (page === 'table_2') {
+                iframe.src = "/CRM/Dashboard/dashboard3?id={{ user.id}}"; 
+                header.textContent = "รายงานการดำเนินงาน";
+            }
+
+            profileDetails.classList.add('active'); 
+        }
+
+        function resizeIframe(iframe) {
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        }
+    </script>
+</body>
+</html>

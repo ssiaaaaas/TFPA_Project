@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Info1</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #f9f9f9;
+    }
+    .logo-container {
+        flex: 1;
+        text-align: left;
+    }
+
+    .home-container {
+        flex: 1;
+        text-align: right;
+    }
+
+    .btn-home {
+        background-color: #CF9B3E;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-home:hover {
+        background-color: #b38533;
+    }
+    .main-topic-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .main-topic {
+        font-size: 24px;
+        color: #1f4f6b;
+        text-align: center;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-items: center;
+      margin: 30px 0;
+      position: relative;
+    }
+    .sub-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        justify-items: center;
+        margin: 10px auto; /* Adjust vertical spacing */
+        width: 77.5%; /* Reduce width to bring them closer */
+    }
+    .step {
+      text-align: center;
+    }
+    .main-topic {
+      text-align: center;
+      font-size: 24px;
+      color: #1f4f6b;
+      margin: 20px 0;
+    }
+
+    .form-group {
+    margin-bottom: 20px; /* Adjust the spacing between questions */
+    }
+    .label {
+    margin-bottom: 8px; /* Consistent spacing below labels */
+    }
+     label, legend {
+      font-family: 'Sarabun', sans-serif;
+     }
+    .fieldset, label {
+    margin-bottom: 20px;
+    padding: 0;
+    }
+    .form-group label {
+      display: block;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 16px;
+      color: #1f4f6b;
+      margin-bottom: 8px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus {
+      border-color: #cf9b3e;
+    }
+    .input-wrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px; /* Adjust spacing between rows */
+    }
+    .input-wrapper input {
+        flex: 1; /* Makes the input field take up available space */
+        margin-right: 10px; /* Space between input and buttons */
+
+    }   
+    .disclaimer h2 {
+        font-size: 16px;
+        font-family: 'IBM Plex Sans Thai', sans-serif;
+        background: #e7e7e6;
+        text-align: left;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .action-label {
+      font-size: 16px;
+      color: #043275;
+    }
+    .btn-submit {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #1F4F6B;
+      border-radius: 10px;
+      color: #1F4F6B;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #1F4F6B;
+      color: #FFFFFF;
+    }
+
+    /* Form Styles */
+
+        form {
+        display: flex;
+        flex-direction: column;
+        }
+
+        label {
+            font-weight: 500;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #1f4f6b;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        input:focus, select:focus {
+            border-color: #1f4f6b;
+            outline: none;
+        }
+
+        /* Gender and Occupation */
+        fieldset {
+            margin-bottom: 20px;
+            border: none;
+            padding: 0;
+        }
+
+        legend {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f4f6b;
+            margin-bottom: 5px;
+        }
+
+        label {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 14px;
+            color: #1f4f6b;
+        }
+
+        label input {
+            margin-right: 8px;
+        }
+
+        .radio-group {
+        display: flex;
+        gap: 20px; /* Adjust the spacing between each radio option */
+        }
+
+        .radio-group label {
+          display: inline-flex;
+          align-items: center; /* Ensures text and radio button are aligned vertically */
+          font-size: 14px;
+          color: #1f4f6b;
+          font-family: 'Sarabun', sans-serif;
+        }
+
+        .radio-group input[type="radio"] {
+          margin-right: 20px; /* Adds spacing between the radio button and label text */
+          font-size: 12px;
+        }
+
+        /* Button */
+        .next-btn {
+            background: #cf9b3e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .next-btn:hover {
+            background: #b38635;
+        }
+        .btn-save {
+  display: inline-block;
+  background-color: transparent;
+  color: #1F4F6B;
+  border: 1px solid #1F4F6B;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px; /* Space between buttons */
+}
+
+.btn-save:hover {
+  background-color:  #1F4F6B;
+  color: #FFFFFF;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+              </div>
+              <div class="home-container">
+                <a href="/" class="btn-home">หน้าหลัก</a>
+              </div>
+            </div>
+            <div class="main-topic-container">
+              <h1 class="main-topic">กรุณาตอบคำถามเพื่อการวางแผนการเงิน</h1>
+            </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <h2>
+                Disclaimer : คุณเข้าสู่ระบบและใช้แพลตฟอร์มการวางแผนการเงินนี้ คุณยินยอมที่จะให้ข้อมูลส่วนบุคคลของคุณซึ่งจะถูกเก็บรวบรวมและดำเนินการเพียงเพื่อวัตถุประสงค์ในการให้บริการการวางแผนการเงินเฉพาะบุคคลเท่านั้น เรามุ่งมั่นที่จะปกป้องความเป็นส่วนตัวของคุณและรักษาความปลอดภัยของข้อมูลของคุณตามกฎหมายและข้อกำหนดที่เกี่ยวข้อง ข้อมูลของคุณจะไม่ถูกเปิดเผยให้บุคคลที่สามโดยไม่ได้รับความยินยอมจากคุณ โดยการดำเนินการต่อ คุณยอมรับและตกลงตามนโยบายความเป็นส่วนตัวและข้อกำหนดการใช้งานของเรา
+            </h2>
+        </div>
+
+        <!-- Personal Information Form -->
+        <form action="" method="POST">
+            
+            <!-- คำนำหน้าชื่อ -->
+        <div class="form-group">
+            <fieldset>
+              <legend>1. คำนำหน้าชื่อ*</legend>
+              <select name="Name_title_thai" id="Name_title_thai" required>
+                  <option value="" disabled selected>กรุณาเลือก</option>
+                  <option value="miss">นางสาว</option>
+                  <option value="mrs">นาง</option>
+                  <option value="mr">นาย</option>
+              </select>
+          </fieldset>
+        </div>
+
+            <!-- Full Name Thai-->
+            <div class="form-group">
+              <label for="thai_name">2. ชื่อ-สกุล (ภาษาไทย)*</label>
+              <input type="text" id="thai_name" name="thai_name" placeholder="คำตอบ" required oninput="validateText(this, 'ไม่สามารถกรอกเป็นตัวเลขได้')">
+            </div>
+            
+
+            <!-- คำนำหน้าชื่อ Eng -->
+          <div class="form-group">
+            <fieldset>
+              <legend>3. Name Title*</legend>
+              <select name="Name_title_eng" id="Name_title_eng" required>
+                  <option value="" disabled selected>Mr.</option>
+                  <option value="miss">Miss</option>
+                  <option value="mrs">Mrs.</option>
+                  <option value="mr">Mr.</option>
+              </select>
+            </fieldset>
+          </div>
+
+            <!-- Full Name Eng-->
+            <div class="form-group">
+              <label for="english_name">4. Name-Surname (English)*</label>
+              <input type="text" id="english_name" name="english_name" placeholder="คำตอบ" required oninput="validateText(this, 'Invalid input: numbers are not allowed')">
+            </div>
+            
+
+              <!-- Gender -->
+              <div class="form-group">
+                <fieldset>
+                  <legend>5. เพศ*</legend>
+                  <div class="radio-group">
+                    <label><input type="radio" name="gender" value="male"> ชาย</label>
+                    <label><input type="radio" name="gender" value="female"> หญิง</label>
+                    <label><input type="radio" name="gender" value="other"> อื่นๆ</label>
+                  </div>
+                </fieldset>
+              </div>
+
+
+            <!-- Date of Birth -->
+          <div class="form-group">
+            <label for="dob">6. วันเดือนปีเกิด*</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+
+            <!-- Occupation -->
+          <div class="form-group">
+            <fieldset>
+                <legend>7. อาชีพ*</legend>
+                <select name="job" id="job" required>
+                    <option value="" disabled selected>กรุณาเลือก</option>
+                    <option value="student">นักเรียน/นักศึกษา</option>
+                    <option value="government">ข้าราชการ</option>
+                    <option value="enterprise">พนักงานรัฐวิสาหกิจ</option>
+                    <option value="company">พนักงานบริษัท</option>
+                    <option value="freelancer">ฟรีแลนซ์</option>
+                    <option value="temporary">รับจ้าง (ชั่วคราว)</option>
+                    <option value="business-owner">เจ้าของธุรกิจ</option>
+                    <option value="farmer">เกษตรกร</option>
+                    <option value="other">อื่น ๆ</option>
+                </select>
+            </fieldset>
+          </div>
+
+            <!-- Email -->
+          <div class="form-group">
+            <label for="email">8. E-mail*</label>
+            <input type="email" id="email" name="email" placeholder="คำตอบ" required>
+          </div>
+
+            <!-- Password -->
+          <div class="form-group">
+            <label for="password">9. กรุณาตั้งรหัสผ่าน*</label>
+            <input type="password" id="password" name="password" placeholder="คำตอบ" required>
+          </div>
+
+          <script>
+            function validateText(input, errorMessage) {
+              // Regular expression to allow only letters and spaces
+              const textPattern = /^[A-Za-zก-ฮะ-์\s]*$/;
+          
+              // Check if the input value contains invalid characters
+              if (!textPattern.test(input.value)) {
+                alert(errorMessage); // Show an error message
+                input.value = input.value.replace(/[^A-Za-zก-ฮะ-์\s]/g, ''); // Remove invalid characters
+              }
+            }
+          </script>
+          
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+        <button type="submit" class="btn-submit" value="Submit">ถัดไป</button>
+      </div>
+    </form>
+</body>
+</html>

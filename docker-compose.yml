@@ -1,0 +1,45 @@
+# version: '2'
+# services:
+
+#    rcm-manage-webapp:
+#     restart: always
+#     container_name: "rcm-manage-webapp"
+#     build : .
+#     ports:
+#       - "8060:8060"
+#     command: python -u app.py
+#     network_mode: bridge
+
+
+version: '2'
+services:
+
+  rcm-manage-webapp:
+    restart: always
+    container_name: "rcm-manage-webapp-prod"
+    image: registry.gitlab.com/chat-trakan-hospital/rcm-manage-webapp:{TAG}
+    ports:
+      - "8070:8060"
+    environment:
+      - API_KEY_AUTH=Y3RrQGFwcG9pbnRtZW50UHJvZAo=
+      - HOST_KRUGTHAI_PAYMENT=https://paotanggw-partner.devops.krungthai.com
+      - KRUGTHAI_PAYMENT_AUTH_KEY=WEkQIFqW6DuB6VfSMt5cMfC402RymfTX
+      - HOST=https://console.ctkhospenpoint.com
+      - POSTS=8060
+      - MYSQL_USERNAME=sa
+      - MYSQL_PASSWORD=sa
+      - MYSQL_HOST=61.19.112.123
+      - MYSQL_NAME=hos
+      - MYSQL_PORT=3306
+    command: python -u main.py
+    network_mode: bridge
+
+
+
+# docker run --name nhso-console-dev -d -p 8060:8060 -e API_KEY_AUTH=a2V5QDEyMzQK -e HOST_KRUGTHAI_PAYMENT=https://paotanggw-partner-sit.th-service.co.in -e KRUGTHAI_PAYMENT_AUTH_KEY=SUEz9YMmfJQswRsEZBOe4PGfmWkVAcY0 -e HOST=https://dev-console.ctkhospenpoint.com -e PORT=8060 -e MYSQL_USERNAME=sa -e MYSQL_PASSWORD=sa -e MYSQL_HOST=61.19.112.123 -e MYSQL_NAME=hos -e MYSQL_PORT=3306 -e URL_API=https://dev.ctkhospenpoint.com -e AUTH_KEY=adca1552-0680-40e9-83bc-e26a09df462a -e HOST_NHSO=https://test.nhso.go.th/nhsoendpoint registry.gitlab.com/chat-trakan-hospital/nhso-console:main
+# docker rmi $(docker images | grep '<none>' | awk {'print$3'})
+
+# docker pull registry.gitlab.com/chat-trakan-hospital/rcm-manage-webapp:master
+# docker rm -f rcm-manage-webapp
+# docker run --name rcm-manage-webapp -d -p 8060:8060 -e API_KEY_AUTH=a2V5QDEyMzQK -e HOST_KRUGTHAI_PAYMENT=https://paotanggw-partner-sit.th-service.co.in -e KRUGTHAI_PAYMENT_AUTH_KEY=SUEz9YMmfJQswRsEZBOe4PGfmWkVAcY0 -e HOST=https://dev-console.ctkhospenpoint.com -e PORT=8060 -e MYSQL_USERNAME=sa -e MYSQL_PASSWORD=sa -e MYSQL_HOST=61.19.112.123 -e MYSQL_NAME=hos -e MYSQL_PORT=3306 -e URL_API=https://dev.ctkhospenpoint.com -e AUTH_KEY=adca1552-0680-40e9-83bc-e26a09df462a -e HOST_NHSO=https://test.nhso.go.th/nhsoendpoint registry.gitlab.com/chat-trakan-hospital/rcm-manage-webapp:master
+# docker rmi $(docker images | grep '<none>' | awk {'print$3'})

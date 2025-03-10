@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFP Profile Creation - Professional Information</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background-color: #FFFFFF;
+      color: #1F4F6B;
+    }
+
+    /* Container */
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .btn-home {
+      background-color: #CF9B3E;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 15px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn-home:hover {
+      background-color: #b38533;
+    }
+
+    /* Title Section */
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 30px;
+    }
+
+    /* Steps Section */
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .step {
+      width: 80px;
+      height: 80px;
+      background-color: #D9D9D9;
+      border-radius: 50%;
+      line-height: 80px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin: 0 10px;
+    }
+
+    .step.active {
+      background-color: #1F4F6B;
+    }
+
+    /* Form Styling */
+    .form-group {
+      text-align: left;
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    label, legend {
+      font-family: 'Sarabun', sans-serif;}
+      
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Maintain spacing between elements */
+      flex-wrap: wrap; /* Allow elements to wrap if space is insufficient */
+    }
+    .input-wrapper input[type="text"],
+    .input-wrapper input[type="file"] {
+      flex: 1; /* Make inputs take up available space proportionally */
+      min-width: 150px; /* Set a minimum width to avoid overly small inputs */
+    }
+
+    .form-group input,
+    .form-group select {
+        width: calc(100% - 50px);
+        padding: 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: #cf9b3e;
+    }
+
+    .add-btn, .delete-btn {
+      background-color: #1f4f6b;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    .add-btn:hover, .delete-btn:hover {
+      background-color: #163d52;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Space between elements */
+      margin-bottom: 10px; /* Space between added rows */
+    }
+    .btn-submit {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #1F4F6B;
+      border-radius: 10px;
+      color: #1F4F6B;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover {
+      background-color: #1F4F6B;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+      <button class="btn-home">หน้าหลัก</button>
+    </div>
+
+    <!-- Title -->
+    <h1>CFP สร้างโปรไฟล์</h1>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step">1</div>
+      <div class="step active">2</div>
+      <div class="step">3</div>
+    </div>
+
+    <!-- Form -->
+    <form id="profile-form">
+      <!-- Bio -->
+      <div class="form-group">
+        <label for="bio">แนะนำตัวอย่างย่อ*</label>
+        <input type="text" id="bio" placeholder="Example Bio">
+      </div>
+
+      <!-- Work Experience -->
+      <div class="form-group">
+        <label for="experience">ประสบการณ์การทำงาน*</label>
+        <div id="experience-fields">
+          <div class="input-wrapper">
+            <input type="text" placeholder="คำตอบ">
+            <button type="button" class="add-btn" onclick="addField('experience-fields', 'text')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="form-group">
+        <label for="skills">ทักษะความชำนาญ*</label>
+        <div id="skills-fields">
+          <div class="input-wrapper">
+            <input type="text" placeholder="คำตอบ">
+            <button type="button" class="add-btn" onclick="addField('skills-fields', 'text')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="form-group">
+        <label for="certifications">คุณวุฒิวิชาชีพ/ใบอนุญาติ*</label>
+        <div id="certifications-fields">
+          <div class="input-wrapper">
+            <input type="text" placeholder="คำตอบ">
+            <input type="file">
+            <button type="button" class="add-btn" onclick="addField('certifications-fields', 'text-file')">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Current Job -->
+      <div class="form-group">
+        <label for="current-job">อาชีพหลัก ณ ปัจจุบัน*</label>
+        <input type="text" id="current-job" placeholder="คำตอบ">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <button type="button" class="btn-submit">ย้อนกลับ</button>
+        <button type="submit" class="btn-submit">ถัดไป</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function addField(containerId, type) {
+      const container = document.getElementById(containerId);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'input-wrapper';
+
+      if (type === 'text') {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'คำตอบ';
+        wrapper.appendChild(input);
+      } else if (type === 'text-file') {
+        const inputText = document.createElement('input');
+        inputText.type = 'text';
+        inputText.placeholder = 'คำตอบ';
+        wrapper.appendChild(inputText);
+
+        const inputFile = document.createElement('input');
+        inputFile.type = 'file';
+        wrapper.appendChild(inputFile);
+      }
+
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'add-btn';
+      addButton.innerText = '+';
+      addButton.onclick = () => addField(containerId, type);
+      wrapper.appendChild(addButton);
+
+      container.appendChild(wrapper);
+    }
+
+    function addField(containerId, type) {
+      const container = document.getElementById(containerId);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'input-wrapper';
+
+      // Add text input or text-file input fields
+      if (type === 'text') {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.placeholder = 'คำตอบ';
+      wrapper.appendChild(input);
+      } else if (type === 'text-file') {
+      const inputText = document.createElement('input');
+      inputText.type = 'text';
+      inputText.placeholder = 'คำตอบ';
+      wrapper.appendChild(inputText);
+
+      const inputFile = document.createElement('input');
+      inputFile.type = 'file';
+      wrapper.appendChild(inputFile);
+      }
+
+      // Add the '+' button
+      const addButton = document.createElement('button');
+      addButton.type = 'button';
+      addButton.className = 'add-btn';
+      addButton.innerText = '+';
+      addButton.onclick = () => addField(containerId, type);
+      wrapper.appendChild(addButton);
+
+      // Add the '-' button (delete button)
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.className = 'delete-btn';
+      deleteButton.innerText = '-';
+      deleteButton.onclick = () => container.removeChild(wrapper);
+      wrapper.appendChild(deleteButton);
+
+      // Append the new wrapper to the container
+      container.appendChild(wrapper);
+    }
+  </script>
+</body>
+</html>

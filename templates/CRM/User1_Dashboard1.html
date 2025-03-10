@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard1</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card.blue {
+            background-color: #e8f4ff;
+            border: 2px solid #1f4f6b;
+        }
+
+        .card.gold {
+            background-color: #fdf3e0;
+            border: 2px solid #cf9b3e;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #1f4f6b;
+            text-align: center;
+        }
+
+        .card h4 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+
+        .card p {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 200px;
+        }
+
+        .pie-chart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- User Info -->
+        <div class="card blue">
+            <h3>ชื่อผู้ใช้</h3>
+            <h4>{{ user.thai_name }}</h4>
+        </div>
+
+        <!-- Age and Retirement Percent -->
+        <div class="card blue">
+            <h3>อายุปัจจุบัน</h3>
+            <h4>{{ user.age }}</h4>
+            <p>0% ของอายุเกษียณ</p>
+        </div>
+
+        <!-- Current Assets Pie Chart -->
+        <div class="card blue">
+            <h3>สินทรัพย์ปัจจุบัน</h3>
+            <div class="pie-chart-container">
+                <canvas id="assetsPieChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Retirement Planning -->
+        <div class="card gold">
+            <h3>การวางแผนเกษียณ</h3>
+            <p>เงินที่คาดว่าจะมี ณ วันเกษียณ: {{ data.retirement_plan.expected_retirement_savings|string }}</p>
+            <p>เงินที่ควรมีหลังวันเกษียณ: {{ data.retirement_plan.recommended_retirement_savings|string }}</p>
+            <p>เงินที่ต้องเก็บเพิ่มในแต่ละปี: {{ data.retirement_plan.additional_monthly_savings|string }}</p>
+        </div>
+        
+        <!-- Income vs Expenses Bar Chart -->
+        <div class="card blue">
+            <h3>รายรับ - รายจ่าย</h3>
+            <div class="chart-container">
+                <canvas id="incomeExpenseBarChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Goal Planning -->
+        <div class="card gold">
+            <h3>การวางแผนตามเป้าหมาย</h3>
+            
+            {% for item in data.financial_planning.goal %}
+                <p>{{ item.title }} : {{ item.name_goal }} ฿{{ item.value }}</p>
+            {% endfor %}
+
+            <p>รวมเป้าหมายทั้งหมด: ฿{{ data.financial_planning.financial_sum|string }}</p>
+            <p>จำนวนเงินที่ขาดทั้งหมด ณ ปัจจุบัน: ฿{{ data.financial_planning.financial_amount|string }}</p>
+        </div>
+    </div>
+
+    <script>
+        // Income vs Expense Bar Chart
+        const ctxBar = document.getElementById('incomeExpenseBarChart').getContext('2d');
+        const incomeExpenseBarChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['รายรับ', 'รายจ่าย'],
+                datasets: [{
+                    label: 'Amount (฿)',
+                    data: [ {{data.income_expense.income_sum|int }} , {{data.income_expense.expense_sum|int  }}],
+                    backgroundColor: ['#ff9800', '#3f51b5']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Current Assets Pie Chart
+        const ctxPie = document.getElementById('assetsPieChart').getContext('2d');
+        const assetsPieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['สินทรัพย์สภาพคล่อง {{ data.assets.liquid_assets|int }} ', 'สินทรัพย์เพื่อการลงทุน {{ data.assets.investment_assets|int }}', 'สินทรัพย์ส่วนบุคคล {{ data.assets.personal_assets|int }}'],
+                datasets: [{
+                    data: [{{ data.assets.liquid_assets|int }}, {{ data.assets.investment_assets|int }}, {{ data.assets.personal_assets|int }}],
+                    backgroundColor: ['#ff9800', '#ff3333', '#3f51b5']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

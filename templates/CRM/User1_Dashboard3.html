@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard3</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .dashboard-container {
+      width: 1200px;
+      margin: 20px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+        }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #1f4f6b;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 2px solid #1f4f6b;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-size: 20px;
+      color: #cf9b3e;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .table-container {
+      margin-top: 20px;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      text-align: center;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f5f5f5;
+      color: #1f4f6b;
+    }
+
+    td.negative {
+      color: red;
+    }
+
+    .summary {
+      border: 2px solid #f4b942;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fff8e1;
+      margin-top: 20px;
+    }
+
+    .summary p {
+      font-size: 16px;
+      color: #1f4f6b;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h2>การวางแผนตามเป้าหมาย</h2>
+
+    <!-- Section: Financial Analysis -->
+    <div class="section">
+      <h3 class="section-title">วิเคราะห์เป้าหมาย (คาดการณ์กระแสเงินสด)</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ปี</th>
+              <th>2567</th>
+              <th>2568</th>
+              <th>2569</th>
+              <th>2570</th>
+              <th>2571</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in data %}
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.value1 }}</td>
+                <td>{{ item.value2 }}</td>
+                <td>{{ item.value3 }}</td>
+                <td>{{ item.value4 }}</td>
+                <td>{{ item.value5 }}</td>
+              </tr>
+            {% endfor %}
+            <!-- <tr>
+              <td>รวมรายรับ</td>
+              <td>586,083.00</td>
+              <td>582,233.00</td>
+              <td>615,962.00</td>
+              <td>618,136.00</td>
+              <td>623,918.00</td>
+            </tr>
+            <tr>
+              <td>รายจ่าย</td>
+              <td>231,836.00</td>
+              <td>245,423.00</td>
+              <td>245,423.00</td>
+              <td>245,423.00</td>
+              <td>245,423.00</td>
+            </tr>
+            <tr>
+              <td>ค่าเทอมลูก</td>
+              <td>420,000.00</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>แผนบ้าน</td>
+              <td>400,000.00</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            <tr>
+              <td>กระแสเงินสดสุทธิ</td>
+              <td class="positive">94,702.00</td>
+              <td class="negative">-41,365.05</td>
+              <td class="negative">-87,833.37</td>
+              <td class="positive">883,682.31</td>
+              <td class="positive">1,257,138.95</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section: Financial Summary -->
+    <div class="section">
+      <h3 class="section-title">สรุปผลการวางแผนการเงิน</h3>
+      <div class="summary">
+        <p></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Input1</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 1200px;
+            margin: 20px auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .home-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #cf9b3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #b98633;
+        }
+
+        .header {
+            text-align: center;
+            margin-top: 70px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 30px;
+            color: #1f4f6b;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-section h2 {
+            font-size: 28px;
+            color: #FF0000;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 18px;
+            color: #1f4f6b;
+            margin-bottom: 10px;
+        }
+
+        label,
+        legend {
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: calc(100% - 20px);
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #cf9b3e;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF0000;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background-color: #CC0000;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: transparent;
+            color: #1F4F6B;
+            border: 1px solid #1F4F6B;
+            border-radius: 10px;
+            padding: 10px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .button:hover {
+            background-color: #1F4F6B;
+            color: #FFFFFF;
+        }
+
+        .add-button {
+            background-color: #1f4f6b;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #163d52;
+        }
+    </style>
+    <script>
+        let goalCount = 1;
+        function addNewGoal() {
+            if (goalCount == 10) {
+                alert("คุณสามารถเพิ่มได้สูงสุด 10 เป้าหมาย");
+                return;
+            }
+
+            goalCount++;
+
+            const originalForm = document.querySelector(".form-section");
+            const clonedForm = originalForm.cloneNode(true);
+
+            // Clear input values and update input names dynamically
+            // Clear input values and correctly update input names
+            clonedForm.querySelectorAll("input, select, textarea").forEach((input) => {
+                let baseName = input.getAttribute("name");  // Get the full name (e.g., "financial_goal_1")
+                if (baseName) {
+                    let baseParts = baseName.split("_");  // Split into parts (["financial", "goal", "1"])
+                    baseParts.pop();  // Remove the last part (which is the number)
+                    let newBaseName = baseParts.join("_");  // Join the remaining parts back ("financial_goal")
+                    input.setAttribute("name", `${newBaseName}_${goalCount}`);  // Correct format ("financial_goal_2")
+                    input.value = "";  // Clear the value
+                }
+            });
+
+            // Update the heading of the cloned form
+            const heading = clonedForm.querySelector("h2");
+            heading.textContent = `เป้าหมายที่ ${goalCount}`; // Update the goal number
+        
+ 
+
+            if (!clonedForm.querySelector('.delete-btn')) {
+                 const deleteButton = document.createElement('button');
+                 deleteButton.className = 'delete-btn';
+                 deleteButton.textContent = '-';
+                 deleteButton.onclick = () => deleteGoal(clonedForm);
+                 clonedForm.appendChild(deleteButton);
+             }
+
+            // Append the cloned form to the container
+            document.querySelector("#goal-sections-container").appendChild(clonedForm);
+        }
+
+        function deleteGoal(button) {
+            const goalSections = document.querySelectorAll(".form-section");
+            if (goalSections.length > 1) {
+                button.closest(".form-section").remove();
+                goalCount--;
+                updateGoalLabels();
+            } else {
+                alert("คุณไม่สามารถลบเป้าหมายทั้งหมดได้");
+            }
+        }
+
+        function updateGoalLabels() {
+             const goalSections = document.querySelectorAll('.form-section');
+             goalSections.forEach((section, index) => {
+                const header = section.querySelector('h2');
+                header.textContent = `เป้าหมายที่ ${index + 1}`;
+             });
+         }
+
+        document.getElementById("submit-form").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            const form = document.getElementById("goal-form");
+            const formData = new FormData(form);
+            
+            fetch("/UserDataCollection/Goal_input1", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert("Data saved successfully!");
+            })
+            .catch(error => {
+                console.error("Error saving data:", error);
+                alert("Error saving data. Please try again.");
+            });
+
+        });
+
+        
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/" class="btn-home">หน้าหลัก</a>
+        <div class="header">
+            <h1>กรุณาตอบคำถามเพื่อการวางแผนการเงิน</h1>
+            <p>(ข้อมูลนี้จะใช้เพื่อการวางแผนทางการเงินของคุณอย่างเหมาะสม)</p>
+        </div>
+
+        <form id="goal-form" method="POST">
+            
+            <div id="goal-sections-container">
+                <div class="form-section">
+                    <h2>เป้าหมายที่ 1</h2>
+                    <div class="form-group">
+                        <label for="financial-goal">เป้าหมายในการวางแผนการเงิน*</label>
+                        <input type="text" name="financial_goal_1" id="financial-goal" placeholder="ระบุเป้าหมาย">
+                    </div>
+                    <div class="form-group">
+                        <label for="time-period">อยากให้เป้าหมายนั้นๆเริ่มต้นภายในกี่ปีข้างหน้า (หากต้องการเริ่มต้นภายในปีนี้ กรุณาใส่ 0)*</label>
+                        <input type="number" name="time_period_1" id="time-period" placeholder="ระบุระยะเวลา">
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">จำนวนเงินที่คาดว่าต้องใช้ในแต่ละเป้าหมาย*</label>
+                        <input 
+                            type="number" 
+                            name="amount_1"
+                            id="amount" 
+                            placeholder="ระบุจำนวนเงิน" 
+                            min="0" 
+                            step="0.01" 
+                            required 
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '');"
+                        >
+                        <select name = "payment_type_1" id="payment-type" onchange="toggleDurationField()">
+                            <option value="one-time">ครั้งเดียว</option>
+                            <option value="annual">รายปี</option>
+                        </select>
+                        <div class="form-group" id="duration-group">
+                            <label for="duration">ระบุระยะเวลา (ปี)</label>
+                            <input 
+                                type="number" 
+                                name="duration_1"
+                                id="duration" 
+                                placeholder="ระบุระยะเวลา" 
+                                min="1" 
+                                step="1" 
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="other-factors">ปัจจัยอื่นๆที่ส่งผลกระทบต่อเป้าหมาย</label>
+                            <input type="text" name="other_factors_1" id="other-factors" placeholder="ระบุปัจจัยอื่นๆ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="button" class="button">ย้อนกลับ</button>
+                <button type="button" class="add-button" onclick="addNewGoal()">+ คลิก เพื่อเพิ่มคำตอบ</button>
+                <button type="submit" class="button" id="submit-form">บันทึกข้อมูล</button>
+            </div>
+        </form>
+
+        
+    </div>
+</body>
+
+</html>

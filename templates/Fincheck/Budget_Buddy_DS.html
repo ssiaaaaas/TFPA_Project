@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Buddy DS</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #1f4f6b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .content-container {
+            position: relative; /* Allows absolute positioning inside */
+            width: 100%;
+            max-width: 800px;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px; /* Optional: Add rounded corners */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Add a shadow */
+        }
+
+        /* Button Styling */
+        .start-button {
+            position: absolute;
+            bottom: 5px; /* Distance from the bottom of the blue area */
+            right: 5px; /* Distance from the right of the blue area */
+            background-color: #1f4f6b;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 85px; /* Example width */
+            height: 50px; /* Example height */
+        }
+
+        .start-button:hover {
+            background-color: #163d52;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Budget Buddy</h1>
+    </header>
+    <main>
+        <div class="content-container">
+            <img src="/{{ url_name }}" alt="Analysis Image">
+            <a href="/UserDataCollection/Goal_input1"> <button type="submit" class="start-button">เริ่มวางแผน</button></a>
+        </div>
+    </main>
+</body>
+</html>

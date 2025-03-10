@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fincheck Input</title>
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'IBM Plex Sans Thai', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #f9f9f9;
+    }
+    .logo-container {
+        flex: 1;
+        text-align: left;
+    }
+
+    .home-container {
+        flex: 1;
+        text-align: right;
+    }
+    label, legend {
+      font-family: 'Sarabun', sans-serif;
+     }
+    .fieldset, label {
+    margin-bottom: 20px;
+    padding: 0;
+    }
+
+    .btn-home {
+        background-color: #CF9B3E;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-home:hover {
+        background-color: #b38533;
+    }
+    .main-topic-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .main-topic {
+        font-size: 24px;
+        color: #1f4f6b;
+        text-align: center;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      justify-items: center;
+      margin: 30px 0;
+      position: relative;
+    }
+    .sub-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        justify-items: center;
+        margin: 10px auto; /* Adjust vertical spacing */
+        width: 77.5%; /* Reduce width to bring them closer */
+    }
+    .step {
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 16px;
+      color: #1f4f6b;
+      margin-bottom: 8px;
+    }
+      .form-group input {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+      .form-group input:focus {
+      border-color: #cf9b3e;
+    }
+      .disclaimer {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      margin: 20px 0;
+    }
+      .action-label {
+      font-size: 16px;
+      color: #043275;
+    }
+      .button-container {
+      text-align: center;
+    }
+      .button {
+      background-color: #cf9b3e;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+      .button:hover {
+      background-color: #b98633;
+    }
+      .btn-submit {
+      display: inline-block;
+      background-color: transparent;
+      border: 1px solid #1F4F6B;
+      border-radius: 10px;
+      color: #1F4F6B;
+      padding: 10px 30px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+     .btn-submit:hover {
+      background-color: #1F4F6B;
+      color: #FFFFFF;
+    }
+    .btn-save {
+  display: inline-block;
+  background-color: transparent;
+  color: #1F4F6B;
+  border: 1px solid #1F4F6B;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0 10px; /* Space between buttons */
+}
+
+.btn-save:hover {
+  background-color:  #1F4F6B;
+  color: #FFFFFF;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+              </div>
+              <div class="home-container">
+                <a href="/" class="btn-home">หน้าหลัก</a>
+              </div>
+            </div>
+            <div class="main-topic-container">
+              <h1 class="main-topic">กรุณาตอบคำถามเพื่อการวางแผนการเงิน</h1>
+            </div>
+        <div style="text-align: center; margin-top: 20px; color: red;">
+            <p>( (การคำนวนนี้เป็นการตรวจสถานะทางการเงินโดยประมาณจากอัตราส่วนของสินทรัพย์ หนี้สิน และ เงินออมของคุณ))</p>
+        </div>
+
+        <form action="" method="POST">
+            <input type="hidden" name="personal_info_id" value="">
+            <div class="form-group">
+                <label for="assets">1. สินทรัพย์สภาพคล่อง เช่น เงินสดและเงินในบัญชีธนาคารที่มีอยู่ทั้งหมด*</label>
+                <input type="number" id="current_assets" name="current_assets" placeholder="คำตอบ (ทั้งหมด)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fixed-assets">2. สินทรัพย์ทั้งหมด เช่น บ้าน, รถยนต์, ที่ดิน, เงินออม, การลงทุน*</label>
+                <input type="number" id="total_assets" name="total_assets" placeholder="คำตอบ (ทั้งหมด)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="liabilities">3. หนี้สินทั้งหมด เช่น หนี้บ้าน, หนี้รถยนต์, บัตรเครดิต*</label>
+                <input type="number" id="total_liabilities" name="total_liabilities" placeholder="คำตอบ (ทั้งหมด)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="monthly-expenses">4. กระแสเงินสดจ่ายต่อเดือน เช่น ค่าใช้จ่ายประจำ, ผ่อนสินเชื่อต่อเดือน*</label>
+                <input type="number" id="monthly_expenses" name="monthly_expenses" placeholder="คำตอบ (ต่อเดือน)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="monthly-income">5. รายรับรวมต่อเดือน เช่น เงินเดือน, รายได้จากธุรกิจ, รายได้เสริม*</label>
+                <input type="number" id="monthly_income" name="monthly_income" placeholder="คำตอบ (ต่อเดือน)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="savings">6. เงินออมต่อเดือน*</label>
+                <input type="number" id="savings" name="savings" placeholder="คำตอบ (ต่อเดือน)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loan-repayment">7. เงินที่ชำระคืนหนี้สิน เช่น ค่าผ่อนทรัพย์สินต่างๆ ต่อเดือน*</label>
+                <input type="number" id="debt_payments" name="debt_payments" placeholder="คำตอบ (ต่อเดือน)" step="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="retirement-age">8. อายุที่คาดว่าจะเกษียณ*</label>
+                <input type="number" id="retirement_age" name="retirement_age" placeholder="คำตอบ" required>
+            </div>
+
+            <div class="form-group">
+                <label for="life-expectancy">9. อายุที่คาดว่าจะเสียชีวิต*</label>
+                <input type="number" id="life_expectancy" name="life_expectancy" placeholder="คำตอบ" required>
+            </div>
+
+        <div class="disclaimer">
+            Disclaimer*: ข้อมูลนี้เป็นการคาดการณ์เบื้องต้น โปรดใช้ข้อมูลประกอบการตัดสินใจอย่างรอบคอบ
+        </div>
+
+        <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+          <a href="/fincheck/Personal_info" class="btn-submit">ย้อนกลับ</a>
+          <button type="submit" value="Submit" class="btn-submit">ถัดไป</button>
+        </div>
+      </form>
+  </body>
+  </html>

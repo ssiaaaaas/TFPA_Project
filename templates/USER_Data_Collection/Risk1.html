@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dynamic Add and Remove Fields with Navigation</title>
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+      <style>
+         * {
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'IBM Plex Sans Thai', sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f9f9f9;
+         }
+         .container {
+         max-width: 1200px;
+         margin: 20px auto;
+         padding: 20px;
+         background: #fff;
+         border-radius: 10px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         }
+         .header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 10px 20px;
+         background-color: #f9f9f9;
+         }
+         .logo-container {
+         flex: 1;
+         text-align: left;
+         }
+         .home-container {
+         flex: 1;
+         text-align: right;
+         }
+         .btn-home {
+         background-color: #CF9B3E;
+         color: #FFFFFF;
+         border: none;
+         border-radius: 20px;
+         padding: 5px 15px;
+         font-size: 14px;
+         cursor: pointer;
+         }
+         .btn-home:hover {
+         background-color: #b38533;
+         }
+         .main-topic-container {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         margin: 20px 0;
+         }
+         .main-topic {
+         font-size: 24px;
+         color: #1f4f6b;
+         text-align: center;
+         }
+         .steps {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         gap: 20px;
+         justify-items: center;
+         margin: 30px 0;
+         position: relative;
+         }
+         .sub-steps {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 10px;
+         justify-items: center;
+         margin: 10px auto; /* Adjust vertical spacing */
+         width: 77.5%; /* Reduce width to bring them closer */
+         }
+         .step {
+         text-align: center;
+         }
+         .step .circle {
+         width: 50px;
+         height: 50px;
+         border-radius: 50%;
+         background: #d9d9d9;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 20px;
+         color: black;
+         margin: 0 auto 10px;
+         }
+         .step:nth-child(7) .circle {
+         background: #cf9b3e;
+         }
+         .main-topic {
+         text-align: center;
+         font-size: 24px;
+         color: #1f4f6b;
+         margin: 20px 0;
+         }
+         .form-group {
+         margin-bottom: 20px;
+         }
+         label, legend {
+         font-family: 'Sarabun', sans-serif;
+         }
+         .fieldset, label {
+         margin-bottom: 20px;
+         padding: 0;
+         }
+         .form-group label {
+         display: block;
+         font-family: 'Sarabun', sans-serif;
+         font-size: 16px;
+         color: #1f4f6b;
+         margin-bottom: 8px;
+         }
+         .form-group input {
+         width: 100%;
+         padding: 12px;
+         font-size: 14px;
+         border: 1px solid #ccc;
+         border-radius: 8px;
+         outline: none;
+         transition: border-color 0.3s;
+         }
+         .form-group input:focus {
+         border-color: #cf9b3e;
+         }
+         .input-wrapper {
+         display: flex;
+         align-items: center;
+         margin-bottom: 10px; /* Adjust spacing between rows */
+         }
+         .input-wrapper input {
+         flex: 1; /* Makes the input field take up available space */
+         margin-right: 10px; /* Space between input and buttons */
+         }
+         .add-btn {
+         background-color: #1f4f6b;
+         color: #fff;
+         border: none;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         font-size: 24px;
+         }
+         .add-btn:hover {
+         background-color: #163d52;
+         }
+         .delete-btn {
+         background-color: #1f4f6b;
+         color: #fff;
+         border: none;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         font-size: 24px;
+         }
+         .delete-btn:hover {
+         background-color: #163d52;
+         }
+         .action-label {
+         font-size: 16px;
+         color: #043275;
+         }
+         .btn-container {
+         display: flex;
+         justify-content: space-between;
+         margin-top: 30px;
+         }
+         .btn-submit {
+         display: inline-block;
+         background-color: transparent;
+         border: 1px solid #1F4F6B;
+         border-radius: 10px;
+         color: #1F4F6B;
+         padding: 10px 30px;
+         font-size: 16px;
+         cursor: pointer;
+         }
+         .btn-submit:hover {
+         background-color: #1F4F6B;
+         color: #FFFFFF;
+         }
+         .btn-save {
+         display: inline-block;
+         background-color: transparent;
+         color: #1F4F6B;
+         border: 1px solid #1F4F6B;
+         border-radius: 10px;
+         padding: 10px 30px;
+         font-size: 16px;
+         cursor: pointer;
+         margin: 0 10px; /* Space between buttons */
+         }
+         .btn-save:hover {
+         background-color:  #1F4F6B;
+         color: #FFFFFF;
+         }
+         /* Updated Blue Box Styling */
+         .add-section {
+         padding: 20px;
+         border: 2px solid #1f4f6b;
+         border-radius: 10px;
+         margin-bottom: 20px;
+         }
+         /* Input Row for 2-3 Inputs Per Row */
+         .input-row {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 15px;
+         align-items: center;
+         margin-bottom: 10px;
+         }
+         .input-row label {
+         width: 150px;
+         font-size: 16px;
+         color: #1f4f6b;
+         }
+         .input-row input {
+         flex: 1;
+         min-width: 200px;
+         padding: 12px;
+         font-size: 16px;
+         border: 1px solid #ccc;
+         border-radius: 6px;
+         outline: none;
+         }
+         .input-row input:focus {
+         border-color: #cf9b3e;
+         }
+         /* Button Styling for Consistency */
+         .add-button-container {
+         text-align: center;
+         margin-top: 15px;
+         }
+         .add-button {
+         display: inline-block;
+         background-color: transparent;
+         border: 1px solid #1F4F6B;
+         border-radius: 10px;
+         padding: 10px 20px;
+         color: #1F4F6B;
+         font-size: 16px;
+         cursor: pointer;
+         }
+         .add-button:hover {
+         background-color: #1F4F6B;
+         color: #FFFFFF;
+         }
+         /* Delete Button */
+         .delete-btn {
+         background-color: #1f4f6b;
+         color: #fff;
+         border: none;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         font-size: 24px;
+         }
+         .delete-btn:hover {
+         background-color: #163d52;
+         }
+         /* Responsive Design */
+         @media (max-width: 768px) {
+         .input-row {
+         flex-direction: column;
+         align-items: flex-start;
+         }
+         .input-row label {
+         width: 100%;
+         }
+         .input-row input {
+         width: 100%;
+         }
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+      <div class="header">
+         <div class="logo-container">
+            <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+         </div>
+         <div class="home-container">
+            <button class="btn-home">หน้าหลัก</button>
+         </div>
+      </div>
+      <div class="main-topic-container">
+         <h1 class="main-topic">กรุณาตอบคำถามเพื่อการวางแผนการเงิน</h1>
+      </div>
+      <div class="steps">
+         <div class="step">
+            <div class="circle"style="background:  #d9d9d9;">1</div>
+            <div class="label">ข้อมูลส่วนตัว</div>
+         </div>
+         <div class="step">
+            <div class="circle"style="background: #d9d9d9;">2</div>
+            <div class="label">ข้อมูลการทำงาน</div>
+         </div>
+         <div class="step">
+            <div class="circle"style="background: #d9d9d9;">3</div>
+            <div class="label">ทรัพย์สิน</div>
+         </div>
+         <div class="step">
+            <div class="circle">4</div>
+            <div class="label">หนี้สิน</div>
+         </div>
+      </div>
+      <div class="sub-steps">
+         <div class="step">
+            <div class="circle"style="background:  #d9d9d9;">5</div>
+            <div class="label">รายรับ</div>
+         </div>
+         <div class="step">
+            <div class="circle">6</div>
+            <div class="label">รายจ่าย</div>
+         </div>
+         <div class="step">
+            <div class="circle"style="background:  #cf9b3e;">7</div>
+            <div class="label">การจัดการความเสี่ยง</div>
+         </div>
+      </div>
+      <div class="main-topic">7.1 ประกันชีวิต (ไม่มีกรุณาปล่อยว่าง)</div>
+      <div>
+         <div class="add-section">
+            <label class="sub-sub-topic">กรอกรายละเอียดประกัน</label>
+            <div id="static-insurance-container" class="input-data">
+               <div class="input-row">
+                  <label>วันที่ทำประกัน</label>
+                  <input type="date" id="insurance_date_1" name="insurance_date[]" required>
+                  <label>ประเภท</label>
+                  <input type="text" id="insurance_type_1" name="insurance_type[]" placeholder="ประเภท">
+               </div>
+               <div class="input-row">
+                  <label>ผู้เอาประกัน</label>
+                  <input type="text" id="policyholder_1" name="policyholder[]" placeholder="ผู้เอาประกัน">
+                  <label>เลขที่กรรมธรรม์</label>
+                  <input type="text" id="policy_number_1" name="policy_number[]" placeholder="เลขที่กรรมธรรม์">
+               </div>
+               <div class="input-row">
+                  <label>บริษัทประกัน</label>
+                  <input type="text" id="insurance_company_1" name="insurance_company[]" placeholder="บริษัทประกัน">
+                  <label>เบี้ยประกันต่อปี</label>
+                  <input type="text" id="insurance_premium_1" name="insurance_premium[]" placeholder="เบี้ยประกันต่อปี">
+               </div>
+               <div class="input-row">
+                  <label>ทุนประกัน</label>
+                  <input type="text" id="insurance_fund_1" name="insurance_fund[]" placeholder="ทุนประกัน">
+                  <label>มูลค่าเงินสด</label>
+                  <input type="text" id="cash_value_1" name="cash_value[]" placeholder="มูลค่าเงินสด">
+               </div>
+               <div class="input-row">
+                  <label>อายุกรรมธรรม์</label>
+                  <input type="text" id="policy_age_1" name="policy_age[]" placeholder="อายุกรรมธรรม์">
+               </div>
+            </div>
+         </div>
+         <!-- Wrapper for Dynamically Added Blue Boxes -->
+         <div id="insurance-container"></div>
+         <!-- Add Button (Outside All Blue Boxes) -->
+         <div class="add-button-container">
+            <button type="button" class="add-button" onclick="addBox()">+ (คลิก เพื่อเพิ่มชุดข้อมูล)</button>
+         </div>
+         <!-- Buttons -->
+         <div class="btn-container">
+            <button type="button" class="btn-submit">ย้อนกลับ</button>
+            <!-- <button type="button" class="btn-submit btn-save" onclick="saveData()">บันทึก</button> -->
+            
+            <button type="submit" class="btn-submit" onclick="saveData()">ถัดไป</button>
+             
+         </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+        function addBox() {
+  const container = document.getElementById("insurance-container"); // Ensure new boxes go here
+
+  // Find the next available index
+  let existingIndexes = Array.from(container.querySelectorAll(".add-section"))
+     .map(section => parseInt(section.dataset.index))
+     .filter(num => !isNaN(num));
+
+  let newIndex = existingIndexes.length ? Math.max(...existingIndexes) + 1 : 2;
+
+  // Create new blue box (EXACTLY matching static box)
+  const newBox = document.createElement("div");
+  newBox.className = "add-section dynamic-box";
+  newBox.dataset.index = newIndex;
+
+  // Title inside box
+  const boxTitle = document.createElement("label");
+  boxTitle.className = "sub-sub-topic";
+  boxTitle.textContent = "กรอกรายละเอียดประกัน";
+  newBox.appendChild(boxTitle);
+
+  // Use the same exact static layout
+  newBox.innerHTML += `
+  <div id="static-insurance-container" class="input-data">
+  <div class="input-row">
+                 <label>วันที่ทำประกัน</label>
+                 <input type="date" id="insurance_date_${newIndex}" name="insurance_date[]" required>
+                 <label>ประเภท</label>
+                 <input type="text" id="insurance_type_${newIndex}" name="insurance_type[]" placeholder="ประเภท">
+              </div>
+              <div class="input-row">
+                 <label>ผู้เอาประกัน</label>
+                 <input type="text" id="policyholder_${newIndex}" name="policyholder[]" placeholder="ผู้เอาประกัน">
+                 <label>เลขที่กรรมธรรม์</label>
+                 <input type="text" id="policy_number_${newIndex}" name="policy_number[]" placeholder="เลขที่กรรมธรรม์">
+              </div>
+              <div class="input-row">
+                 <label>บริษัทประกัน</label>
+                 <input type="text" id="insurance_company_${newIndex}" name="insurance_company[]" placeholder="บริษัทประกัน">
+                 <label>เบี้ยประกันต่อปี</label>
+                 <input type="text" id="insurance_premium_${newIndex}" name="insurance_premium[]" placeholder="เบี้ยประกันต่อปี">
+              </div>
+              <div class="input-row">
+                 <label>ทุนประกัน</label>
+                 <input type="text" id="insurance_fund_${newIndex}" name="insurance_fund[]" placeholder="ทุนประกัน">
+                 <label>มูลค่าเงินสด</label>
+                 <input type="text" id="cash_value_${newIndex}" name="cash_value[]" placeholder="มูลค่าเงินสด">
+              </div>
+              <div class="input-row">
+                 <label>อายุกรรมธรรม์</label>
+                 <input type="text" id="policy_age_${newIndex}" name="policy_age[]" placeholder="อายุกรรมธรรม์">
+              </div>
+              </div>
+  `;
+
+  // Add delete button to the new box
+  const deleteButton = document.createElement("button");
+  deleteButton.type = "button";
+  deleteButton.className = "delete-btn";
+  deleteButton.textContent = "-";
+  deleteButton.onclick = function () {
+     removeBox(newBox);
+  };
+
+  newBox.appendChild(deleteButton);
+  container.appendChild(newBox);
+}
+
+function removeBox(box) {
+   box.remove();
+
+   // Renumber all remaining dynamic boxes
+   const allBoxes = document.querySelectorAll(".dynamic-box");
+   allBoxes.forEach((box, index) => {
+      let newIndex = index + 2; // Start numbering from 2 since 1 is static
+
+      box.dataset.index = newIndex;
+
+      // Update all input field IDs inside this box
+      box.querySelectorAll("input").forEach(input => {
+         let nameParts = input.name.split("_");
+         let baseName = nameParts.join("_"); // Extract base name (e.g., "insurance_date")
+         input.name = `${baseName}`;
+         input.id = `${baseName}_${newIndex}`;
+      });
+   });
+}
+
+function saveData() {
+            let inputRows = document.querySelectorAll(".input-data"); 
+            let data = [];
+            let rowDataFix = []; 
+
+            
+            inputRows.forEach(row => {
+               let rowData = {};
+
+               let inputs = row.querySelectorAll("input, select");
+
+               inputs.forEach(input => {
+                  let name = input.name.replace(/\[\]$/, ""); 
+                  rowData[name] = input.value.trim(); 
+               });
+
+               data.push(rowData); 
+            });
+
+            console.log("JSON Data:", JSON.stringify(data, null, 2)); 
+            
+            console.log("Saved Data:", data); 
+
+            Swal.fire({
+               title: "คุณแน่ใจใช่ไหม",
+               text: "ระบบจะทำการบันทึกข้อมูลทั้งหมด",
+               icon: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#3085d6",
+               cancelButtonColor: "#d33",
+               confirmButtonText: "บันทึก",
+               cancelButtonText: "ยกเลิก"
+               }).then((result) => {
+               if (result.isConfirmed) {
+                  Swal.fire({
+                     title: "บันทึกสำเร็จ!",
+                     text: "ข้อมูลได้บันทึกสำเร็จ",
+                     icon: "success"
+                  }).then((result) => {
+                     fetch("/UserDataCollection/Risk1", {
+                           method: "POST",
+                           headers: {
+                              "Content-Type": "application/json",
+                           },
+                           body: JSON.stringify(data), 
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                           // alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!');
+                          window.location.href = "/UserDataCollection/Risk2";
+                        })
+                        .catch(error => {
+                           console.error("Error saving data:", error);
+                           alert("Error saving data. Please try again.");
+                        });
+                  })
+               }
+               });
+            }
+
+     </script>
+   </body>
+</html>

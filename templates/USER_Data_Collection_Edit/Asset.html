@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Dynamic Add and Remove Fields with Navigation</title>
+      <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <title>Financial Planning</title>
+      <style>
+         * {
+         box-sizing: border-box;
+         }
+         body {
+         font-family: 'IBM Plex Sans Thai', sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f9f9f9;
+         }
+         .container {
+         max-width: 1200px;
+         margin: 20px auto;
+         padding: 20px;
+         background: #fff;
+         border-radius: 10px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         }
+         .header {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 10px 20px;
+         background-color: #f9f9f9;
+         }
+         .logo-container {
+         flex: 1;
+         text-align: left;
+         }
+         .home-container {
+         flex: 1;
+         text-align: right;
+         }
+         .btn-home {
+         background-color: #CF9B3E;
+         color: #FFFFFF;
+         border: none;
+         border-radius: 20px;
+         padding: 5px 15px;
+         font-size: 14px;
+         cursor: pointer;
+         }
+         .btn-home:hover {
+         background-color: #b38533;
+         }
+         .main-topic-container {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         margin: 20px 0;
+         }
+         .main-topic {
+         font-size: 24px;
+         color: #1f4f6b;
+         text-align: center;
+         }
+         h1 {
+         text-align: center;
+         font-size: 36px;
+         color: #1f4f6b;
+         margin-bottom: 20px;
+         }
+         .steps {
+         display: grid;
+         grid-template-columns: repeat(4, 1fr);
+         gap: 20px;
+         justify-items: center;
+         margin-bottom: 30px;
+         }
+         .sub-steps {
+         display: grid;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 10px;
+         justify-items: center;
+         margin: 10px auto; /* Adjust vertical spacing */
+         width: 77.5%; /* Reduce width to bring them closer */
+         }
+         .step {
+         text-align: center;
+         }
+         .step .circle {
+         width: 70px;
+         height: 70px;
+         border-radius: 50%;
+         background: #d9d9d9;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 24px;
+         color: #000;
+         margin: 0 auto;
+         }
+         .step:nth-child(3) .circle {
+         background: #cf9b3e;
+         }
+         .main-topic {
+         text-align: center;
+         font-size: 24px;
+         color: #1f4f6b;
+         margin: 20px 0;
+         }
+         .step.active .circle {
+         background: #1f4f6b;
+         color: #fff;
+         }
+         .step .label {
+         font-size: 18px;
+         color: #1f4f6b;
+         margin-top: 10px;
+         }
+         .form-section {
+         margin-bottom: 40px;
+         }
+         .form-section h2 {
+         font-size: 28px;
+         color: #1f4f6b;
+         margin-bottom: 20px;
+         }
+         .form-group {
+         margin-bottom: 20px;
+         }
+         label, legend {
+         font-family: 'Sarabun', sans-serif;
+         }
+         .fieldset, label {
+         margin-bottom: 20px;
+         padding: 0;
+         }
+         .form-group label {
+         display: block;
+         font-family: 'Sarabun', sans-serif;
+         font-size: 16px;
+         color: #1f4f6b;
+         margin-bottom: 8px;
+         }
+         .form-group input {
+         width: 100%;
+         padding: 12px;
+         font-size: 14px;
+         border: 1px solid #ccc;
+         border-radius: 8px;
+         outline: none;
+         transition: border-color 0.3s;
+         }
+         .form-group input:focus {
+         border-color: #cf9b3e;
+         }
+         .input-wrapper {
+         display: flex;
+         align-items: center;
+         margin-bottom: 10px; /* Adjust spacing between rows */
+         }
+         .input-wrapper input {
+         flex: 1; /* Makes the input field take up available space */
+         margin-right: 10px; /* Space between input and buttons */
+         }
+         .add-section {
+         padding: 20px;
+         border: 2px solid #1f4f6b;
+         border-radius: 10px;
+         margin-bottom: 20px;
+         }
+         .add-section p {
+         font-size: 16px;
+         color: #1f4f6b;
+         margin-bottom: 8px;
+         }
+         .input-row {
+         display: flex;
+         gap: 10px;
+         margin-bottom: 10px;
+         }
+         .input-row label {
+         font-size: 14px;
+         color: #1f4f6b;
+         margin-right: 10px;
+         align-self: center;
+         }
+         .input-row input {
+         flex: 1;
+         padding: 10px;
+         font-size: 16px;
+         border: 1px solid #ccc;
+         border-radius: 8px;
+         }
+         .input-row button {
+         background: #1f4f6b;
+         color: #fff;
+         border: none;
+         padding: 10px 15px;
+         font-size: 16px;
+         cursor: pointer;
+         border-radius: 5px;
+         }
+         .input-row button.delete {
+         background: #b33f3f;
+         }
+         .add-btn {
+         background-color: #1f4f6b;
+         color: #fff;
+         border: none;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         font-size: 24px;
+         }
+         .add-button-container {
+         text-align: center;
+         margin-top: 20px;
+         }
+         .add-button {
+         display: inline-block;
+         background-color: transparent;
+         border: 1px solid #1F4F6B;
+         border-radius: 10px;
+         padding: 10px 20px;
+         color: #1F4F6B;
+         font-size: 16px;
+         font-family: 'Inter', sans-serif;
+         cursor: pointer;
+         transition: all 0.3s ease-in-out;
+         }
+         .add-button:hover {
+         background-color: #1F4F6B;
+         color: #FFFFFF;
+         }
+         .input-container {
+         margin-top: 20px;
+         }
+         .dynamic-input {
+         display: flex;
+         align-items: center;
+         margin-bottom: 10px;
+         }
+         .dynamic-input input {
+         width: 80%;
+         padding: 10px;
+         margin-right: 10px;
+         font-size: 14px;
+         border: 1px solid #ccc;
+         border-radius: 5px;
+         }   
+         .dynamic-input button {
+         background-color: #FF6666;
+         border: none;
+         color: white;
+         padding: 10px 15px;
+         border-radius: 5px;
+         cursor: pointer;
+         font-size: 14px;
+         }
+         .dynamic-input button:hover {
+         background-color: #CC3333;
+         }
+         .delete-btn {
+         background-color: #1f4f6b;
+         color: #fff;
+         border: none;
+         border-radius: 50%;
+         width: 40px;
+         height: 40px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         cursor: pointer;
+         font-size: 24px;
+         }
+         .delete-btn:hover {
+         background-color: #163d52;
+         }
+         .action-label {
+         font-size: 16px;
+         color: #043275;
+         }
+         .button-container {
+         display: flex;
+         justify-content: space-between;
+         margin-top: 20px;
+         padding: 10px; /* Optional for spacing inside the container */
+         position: relative; /* Ensures alignment within the parent container */
+         }
+         .btn-submit {
+         display: inline-block;
+         background-color: transparent;
+         border: 1px solid #1F4F6B;
+         border-radius: 10px;
+         color: #1F4F6B;
+         padding: 10px 30px;
+         font-size: 16px;
+         cursor: pointer;
+         transition: all 0.3s ease-in-out;
+         }
+         .btn-submit:hover {
+         background-color: #1F4F6B;
+         color: #FFFFFF;
+         }
+         .btn-save {
+         display: inline-block;
+         background-color: transparent;
+         color: #1F4F6B;
+         border: 1px solid #1F4F6B;
+         border-radius: 10px;
+         padding: 10px 30px;
+         font-size: 16px;
+         cursor: pointer;
+         margin: 0 10px; /* Space between buttons */
+         }
+         .btn-save:hover {
+         background-color:  #1F4F6B;
+         color: #FFFFFF;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="header">
+            <div class="logo-container">
+               <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+            </div>
+            <div class="home-container">
+               <button class="btn-home">หน้าหลัก</button>
+            </div>
+         </div>
+         <div class="main-topic-container">
+            <h1 class="main-topic">กรุณาตอบคำถามเพื่อการวางแผนการเงิน</h1>
+         </div>
+         <div class="steps">
+            <div class="step">
+               <div class="circle"style="background:  #d9d9d9;">1</div>
+               <div class="label">ข้อมูลส่วนตัว</div>
+            </div>
+            <div class="step">
+               <div class="circle"style="background: #d9d9d9;">2</div>
+               <div class="label">ข้อมูลการทำงาน</div>
+            </div>
+            <div class="step">
+               <div class="circle"style="background: #cf9b3e;">3</div>
+               <div class="label">ทรัพย์สิน</div>
+            </div>
+            <div class="step">
+               <div class="circle">4</div>
+               <div class="label">หนี้สิน</div>
+            </div>
+         </div>
+         <div class="sub-steps">
+            <div class="step">
+               <div class="circle"style="background:  #d9d9d9;">5</div>
+               <div class="label">รายรับ</div>
+            </div>
+            <div class="step">
+               <div class="circle">6</div>
+               <div class="label">รายจ่าย</div>
+            </div>
+            <div class="step">
+               <div class="circle"style="background:  #d9d9d9;">7</div>
+               <div class="label">การจัดการความเสี่ยง</div>
+            </div>
+         </div>
+         <div class="main-topic">3. ทรัพย์สิน (ไม่มีกรุณาปล่อยว่าง)</div>
+         <form method="post">
+            
+         <div class="form-group">
+            <label for="savings">1. บัญชีออมทรัพย์*</label>
+            <input type="hidden" name="asset_type[]" value="savings">
+            <input type="hidden" name="asset_name[]" value="savings">
+            <input type="number" name="savings_account" id="number_bank" placeholder="คำตอบ" required>
+            <input type="hidden" name="asset_cost[]" value="savings">
+            <input type="hidden" name="dividend[]" value="savings">
+            <input type="hidden" name="growth_rate[]" value="savings">
+            <input type="hidden" name="purchase_date[]" value="savings">
+            <input type="hidden" name="maturity_date[]" value="savings">
+         </div>
+         <div class="form-group">
+            <label for="fixedDeposit">2. บัญชีเงินฝากประจำ</label>
+            <input type="hidden" name="asset_type[]" value="fixed_deposit">
+            <input type="hidden" name="asset_name[]" value="savings">
+            <input type="number" name="deposit_account" id="fixedDeposit" placeholder="คำตอบ">
+            <input type="hidden" name="asset_cost[]" value="savings">
+            <input type="hidden" name="dividend[]" value="savings">
+            <input type="hidden" name="growth_rate[]" value="savings">
+            <input type="hidden" name="purchase_date[]" value="savings">
+            <input type="hidden" name="maturity_date[]" value="savings">
+         </div>
+         <div class="add-section">
+            <p>3. พันธบัตร/หุ้นกู้</p>
+            <div id="bonds" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="bonds">
+                  <input type="text" id="bonds-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="bonds-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="bonds-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน*" required>
+                  <input type="text" id="bonds-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="bonds-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="bonds-container_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="bonds-container_purchase_date_0" name="purchase_date[]">
+                  <label for="bonds-container_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="bonds-container_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('bonds')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div class="add-section">
+            <p>4. หุ้นบุริมสิทธิ</p>
+            <div id="preferred_shares" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="preferred_shares">
+                  <input type="text" id="preferred-shares-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="preferred-shares-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="preferred-shares-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
+                  <input type="text" id="preferred-shares-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="preferred-shares-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="preferred-shares-container_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="preferred-shares-container_purchase_date_0" name="purchase_date[]">
+                  <label for="preferred-shares-container_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="preferred-shares-container_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('preferred_shares')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div class="add-section">
+            <p>5. หุ้นสามัญ</p>
+            <div id="common_shares" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="common_shares">
+                  <input type="text" id="common-shares-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="common-shares-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="common-shares-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
+                  <input type="text" id="common-shares-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="common-shares-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="common-shares-container_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="common-shares-container_purchase_date_0" name="purchase_date[]">
+                  <label for="common-shares-container_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="common-shares-container_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('common_shares')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div class="add-section">
+            <p>6. กองทุน</p>
+            <div id="funds" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="funds">
+                  <input type="text" id="funds-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="funds-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="funds-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
+                  <input type="text" id="funds-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="funds-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="funds-container_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="funds-container_purchase_date_0" name="purchase_date[]">
+                  <label for="funds-container_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="funds-container_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('funds')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div class="add-section">
+            <p>7. สินทรัพย์เพื่อการลงทุนอื่นๆ เช่น หุ้นอนุพันธ์</p>
+            <div id="investment" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="investment">
+                  <input type="text" id="investment-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="investment-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="investment-assets-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
+                  <input type="text" id="investment-assets-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="investment-assets-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="investment-assets-container_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="investment-assets-container_purchase_date_0" name="purchase_date[]">
+                  <label for="investment-assets-container_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="investment-assets-container_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('investment')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div class="add-section">
+            <p>8. สินทรัพย์ส่วนบุคคล</p>
+            <div id="personal_asset" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="personal_asset">
+                  <input type="text" id="personal-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="personal-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="personal-assets-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
+                  <input type="text" id="personal-assets-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="personal-assets-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="personal-assets-container_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="personal-assets-container_purchase_date_0" name="purchase_date[]">
+                  <label for="personal-assets-container_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="personal-assets-container_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('personal_asset')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div class="add-section">
+            <p>9. ทรัพย์สินอื่นๆ เช่น สิทธิบัตร, ลิขสิทธิ์, หุ้นในบริษัทที่เป็นเจ้าของ</p>
+            <div id="other" class="input-data">
+               <div class="input-row">
+                  <input type="hidden" name="asset_type[]" value="other">
+                  <input type="text" id="other-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
+                  <input type="text" id="other-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="other-assets-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
+                  <input type="text" id="other-assets-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
+                  <input type="text" id="other-assets-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
+               </div>
+               <div class="input-row">
+                  <label for="other_purchase_date_0">วันที่ซื้อสินทรัพย์</label>
+                  <input type="date" id="other_purchase_date_0" name="purchase_date[]">
+                  <label for="other_maturity_date_0">วันครบกำหนดอายุสินทรัพย์</label>
+                  <input type="date" id="other_maturity_date_0" name="maturity_date[]">
+               </div>
+               <div class="add-button-container">
+                  <button class="add-button" onclick="addRow('other')">+ (คลิก เพื่อเพิ่มคำตอบ)</button>
+               </div>
+            </div>
+         </div>
+         <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+            <button type="button" class="btn-submit">ย้อนกลับ</button>
+            <button type="button" class="btn-submit btn-save" onclick="saveData()">ถัดไป</button>
+            <!-- <form action="" method="post">
+               <button type="submit" class="btn-submit">ถัดไป</button>
+             </form> -->
+         </div>
+         </form>
+         <script>
+            function saveData() {
+            let inputRows = document.querySelectorAll(".input-data"); 
+            let data = [];
+            let rowDataFix = []; 
+
+            
+            inputRows.forEach(row => {
+               let rowData = {};
+
+               let inputs = row.querySelectorAll("input");
+
+               inputs.forEach(input => {
+                  let name = input.name.replace(/\[\]$/, ""); 
+                  rowData[name] = input.value.trim(); 
+               });
+
+               data.push(rowData); 
+            });
+
+            number_bank = document.getElementById("number_bank").value; 
+            fixedDeposit = document.getElementById("fixedDeposit").value;
+            let jsonData = {
+               "number_bank" : number_bank,
+               "fixedDeposit" : fixedDeposit,
+               "data" : data
+            }
+            
+            rowDataFix.push(jsonData)
+
+            console.log("JSON Data:", JSON.stringify(rowDataFix, null, 2)); 
+            
+            console.log("Saved Data:", rowDataFix); 
+
+            Swal.fire({
+               title: "คุณแน่ใจใช่ไหม",
+               text: "ระบบจะทำการบันทึกข้อมูลทั้งหมด",
+               icon: "warning",
+               showCancelButton: true,
+               confirmButtonColor: "#3085d6",
+               cancelButtonColor: "#d33",
+               confirmButtonText: "บันทึก",
+               cancelButtonText: "ยกเลิก"
+               }).then((result) => {
+               if (result.isConfirmed) {
+                  Swal.fire({
+                     title: "บันทึกสำเร็จ!",
+                     text: "ข้อมูลได้บันทึกสำเร็จ",
+                     icon: "success"
+                  }).then((result) => {
+                     fetch("/UserDataCollection/Edit/Asset", {
+                           method: "POST",
+                           headers: {
+                              "Content-Type": "application/json",
+                           },
+                           body: JSON.stringify(rowDataFix), 
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                           // alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!');
+                          window.location.href = "/UserDataCollection/Edit/Liabilities";
+                        })
+                        .catch(error => {
+                           console.error("Error saving data:", error);
+                           alert("Error saving data. Please try again.");
+                        });
+
+                     
+                  })
+               }
+               });
+
+            // fetch("/UserDataCollection/Asset", {
+            //     method: "POST",
+            //     headers: {
+            //       "Content-Type": "application/json",
+            //    },
+            //    body: JSON.stringify(rowDataFix), 
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //    // alert('ข้อมูลถูกบันทึกเรียบร้อยแล้ว!');
+            // //   window.location.href = "/UserDataCollection/Work_detail";
+            // })
+            // .catch(error => {
+            //     console.error("Error saving data:", error);
+            //     alert("Error saving data. Please try again.");
+            // });
+            
+            // You can replace this console.log with an AJAX request to send `data` to the backend
+            }
+            
+         </script>
+      </div>
+      <script>         
+         function removeField(button) {
+           button.parentElement.remove();
+         }
+          
+         let rowCounter = 0; // Global counter to ensure unique IDs for each row
+         
+         function addRow(containerId) {
+            const container = document.getElementById(containerId);
+            let existingIndexes = Array.from(container.querySelectorAll("input"))
+               .map(input => parseInt(input.id.split("_").pop()))
+               .filter(num => !isNaN(num));
+
+            let newIndex = existingIndexes.length ? Math.max(...existingIndexes) + 1 : 1;
+
+            // Create new input row
+            const newFieldset = document.createElement('div');
+            newFieldset.className = 'input-data';
+
+            const hiddenAssetType = document.createElement('input');
+            hiddenAssetType.type = 'hidden';
+            hiddenAssetType.name = "asset_type[]";
+            hiddenAssetType.value = containerId; // ✅ Automatically set the asset type based on container
+            newFieldset.appendChild(hiddenAssetType);
+
+            // First row: Asset details
+            const inputRow1 = document.createElement('div');
+            inputRow1.className = 'input-row';
+
+            const fields1 = [
+               { type: 'text', placeholder: 'ชื่อสินทรัพย์*', name: "asset_name[]" },
+               { type: 'text', placeholder: 'มูลค่าปัจจุบัน*', name: "asset_value[]" },
+               { type: 'text', placeholder: 'ต้นทุน*', name: "asset_cost[]" },
+               { type: 'text', placeholder: 'ปันผล/ดอกเบี้ยต่อปี(%)', name: "dividend[]" },
+               { type: 'text', placeholder: 'อัตราการเติบโตต่อปี(%)', name: "growth_rate[]" }
+            ];
+
+            fields1.forEach((field) => {
+               const input = document.createElement('input');
+               input.type = field.type;
+               input.placeholder = field.placeholder;
+               input.name = field.name;  // ✅ Use array notation ([]) to allow multiple values
+               input.id = `${field.name}_${newIndex}`;
+               input.required = true;
+               inputRow1.appendChild(input);
+            });
+
+            newFieldset.appendChild(inputRow1);
+
+            // Second row: Date details
+            const inputRow2 = document.createElement('div');
+            inputRow2.className = 'input-row';
+
+            const fields2 = [
+               { type: 'date', label: 'วันที่ซื้อสินทรัพย์', name: "purchase_date[]" },
+               { type: 'date', label: 'วันครบกำหนดอายุสินทรัพย์', name: "maturity_date[]" }
+            ];
+
+            fields2.forEach((field) => {
+               const label = document.createElement('label');
+               label.textContent = field.label;
+               inputRow2.appendChild(label);
+
+               const input = document.createElement('input');
+               input.type = field.type;
+               input.name = field.name;  // ✅ Use array notation ([]) to store multiple inputs
+               input.id = `${field.name}_${newIndex}`;
+               inputRow2.appendChild(input);
+            });
+
+            newFieldset.appendChild(inputRow2);
+            container.appendChild(newFieldset);
+         
+         // Add Delete button
+         const deleteBtn = document.createElement('button');
+         deleteBtn.className = 'delete-btn';
+         deleteBtn.type = 'button';
+         deleteBtn.textContent = '-';
+         deleteBtn.onclick = function () {
+         newFieldset.remove();
+         };
+         newFieldset.appendChild(deleteBtn);
+         
+         // Append the new row to the correct container
+         container.appendChild(newFieldset);
+         }
+         
+      </script>
+      </form>
+   </body>
+</html>
