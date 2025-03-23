@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Dynamic Add and Remove Fields with Navigation</title>
+      <title>Assets Edit</title>
       <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
       <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -329,10 +329,10 @@
       <div class="container">
          <div class="header">
             <div class="logo-container">
-               <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+               <img src="https://www.tfpa.or.th/images/logo.png" alt="Logo" class="logo">
             </div>
             <div class="home-container">
-               <button class="btn-home">หน้าหลัก</button>
+               <a href="/" class="btn-home">หน้าหลัก</a>
             </div>
          </div>
          <div class="main-topic-container">
@@ -377,7 +377,7 @@
             <label for="savings">1. บัญชีออมทรัพย์*</label>
             <input type="hidden" name="asset_type[]" value="savings">
             <input type="hidden" name="asset_name[]" value="savings">
-            <input type="number" name="savings_account" id="number_bank" placeholder="คำตอบ" required>
+            <input type="number" name="savings_account" id="number_bank" placeholder="คำตอบ" >
             <input type="hidden" name="asset_cost[]" value="savings">
             <input type="hidden" name="dividend[]" value="savings">
             <input type="hidden" name="growth_rate[]" value="savings">
@@ -400,9 +400,9 @@
             <div id="bonds" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="bonds">
-                  <input type="text" id="bonds-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="bonds-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
-                  <input type="text" id="bonds-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน*" required>
+                  <input type="text" id="bonds-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" >
+                  <input type="text" id="bonds-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" >
+                  <input type="text" id="bonds-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน*" >
                   <input type="text" id="bonds-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="bonds-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
                </div>
@@ -422,8 +422,8 @@
             <div id="preferred_shares" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="preferred_shares">
-                  <input type="text" id="preferred-shares-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="preferred-shares-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="preferred-shares-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" >
+                  <input type="text" id="preferred-shares-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" >
                   <input type="text" id="preferred-shares-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
                   <input type="text" id="preferred-shares-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="preferred-shares-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
@@ -444,8 +444,8 @@
             <div id="common_shares" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="common_shares">
-                  <input type="text" id="common-shares-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="common-shares-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="common-shares-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" >
+                  <input type="text" id="common-shares-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" >
                   <input type="text" id="common-shares-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
                   <input type="text" id="common-shares-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="common-shares-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
@@ -466,8 +466,8 @@
             <div id="funds" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="funds">
-                  <input type="text" id="funds-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="funds-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="funds-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" >
+                  <input type="text" id="funds-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" >
                   <input type="text" id="funds-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
                   <input type="text" id="funds-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="funds-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
@@ -488,8 +488,8 @@
             <div id="investment" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="investment">
-                  <input type="text" id="investment-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="investment-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="investment-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" >
+                  <input type="text" id="investment-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" >
                   <input type="text" id="investment-assets-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
                   <input type="text" id="investment-assets-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="investment-assets-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
@@ -510,8 +510,8 @@
             <div id="personal_asset" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="personal_asset">
-                  <input type="text" id="personal-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="personal-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="personal-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" >
+                  <input type="text" id="personal-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" >
                   <input type="text" id="personal-assets-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
                   <input type="text" id="personal-assets-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="personal-assets-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">
@@ -532,8 +532,8 @@
             <div id="other" class="input-data">
                <div class="input-row">
                   <input type="hidden" name="asset_type[]" value="other">
-                  <input type="text" id="other-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*" required>
-                  <input type="text" id="other-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*" required>
+                  <input type="text" id="other-assets-container_name_0" name="asset_name[]" placeholder="ชื่อสินทรัพย์*">
+                  <input type="text" id="other-assets-container_value_0" name="asset_value[]" placeholder="มูลค่าปัจจุบัน*">
                   <input type="text" id="other-assets-container_cost_0" name="asset_cost[]" placeholder="ต้นทุน">
                   <input type="text" id="other-assets-container_dividend_0" name="dividend[]" placeholder="ปันผล/ดอกเบี้ยต่อปี(%)">
                   <input type="text" id="other-assets-container_growth_0" name="growth_rate[]" placeholder="อัตราการเติบโตต่อปี(%)">

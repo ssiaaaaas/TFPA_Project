@@ -243,10 +243,10 @@
     <div class="container">
         <div class="header">
             <div class="logo-container">
-              <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+              <img src="https://www.tfpa.or.th/images/logo.png" alt="Logo" class="logo">
             </div>
             <div class="home-container">
-              <button class="btn-home">หน้าหลัก</button>
+              <a href="/" class="btn-home">หน้าหลัก</a>
             </div>
           </div>
           <div class="main-topic-container">
@@ -256,7 +256,7 @@
 
 <div class="steps">
     <div class="step">
-      <div class="circle">1</div>
+      <div class="circle"style="background:  #d9d9d9;">1</div>
       <div class="label">ข้อมูลส่วนตัว</div>
     </div>
     <div class="step">
@@ -313,23 +313,23 @@
             </div>
             <div class="form-group">
                 <label for = "salary">5. อัตราเงินเดือน*</label>
-                <input type="number" name="salary" id = "salary" placeholder="กรอกอัตราเงินเดือน" required>
+                <input type="number" name="salary" id = "salary" placeholder="กรอกอัตราเงินเดือน" >
             </div>
             <div class="form-group">
                 <label for = "bonus">6. โบนัสต่อปี (เดือน)*</label>
-                <input type="number" name="bonus" id = "bonus" placeholder="กรอกโบนัสต่อปี" required>
+                <input type="number" name="bonus" id = "bonus" placeholder="กรอกโบนัสต่อปี" >
             </div>
             <div class="form-group">
                 <label for = "salary_growth">7. อัตราเติบโตเงินเดือน (% ต่อปี)*</label>
-                <input type="number" name="salary_growth" id = "salary_growth" placeholder="กรอกโบนัสต่อปี" required>
+                <input type="number" name="salary_growth" id = "salary_growth" placeholder="กรอกโบนัสต่อปี" >
             </div>
             <div class="form-group">
                 <label for = "working_years">8. อายุงาน (ปี)*</label>
-                <input type="number" name="working_years" id = "working_years" placeholder="กรอกอายุงาน" required>
+                <input type="number" name="working_years" id = "working_years" placeholder="กรอกอายุงาน" >
             </div>
             <div class="form-group">
                 <label for = "job_change_prop">9. แนวโน้มที่จะเปลี่ยนงาน*</label>
-                <input type="number" name="job_change_prop" id = "job_change_prop" placeholder="กรอกอายุงาน" required>
+                <input type="number" name="job_change_prop" id = "job_change_prop" placeholder="กรอกแนวโน้มที่จะเปลี่ยนงาน">
             </div>
 
 
@@ -341,3 +341,49 @@
     </form>
 </body>
 </html>
+
+
+<script>
+  function saveData() {
+      Swal.fire({
+        title: "คุณแน่ใจใช่ไหม",
+        text: "ระบบจะทำการบันทึกข้อมูลทั้งหมด",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "บันทึก",
+        cancelButtonText: "ยกเลิก"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "บันทึกสำเร็จ!",
+            text: "ข้อมูลได้บันทึกสำเร็จ",
+            icon: "success"
+          }).then((result) => {
+
+            
+            const form = document.getElementById("data");
+            const formData = new FormData(form);
+            
+            fetch("/UserDataCollection/User_Personal_info2", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+              window.location.href = "/UserDataCollection/Edit/Work_detail";
+            })
+            .catch(error => {
+                console.error("Error saving data:", error);
+                alert("Error saving data. Please try again.");
+            });
+
+            
+          })
+        }
+      });
+      // document.getElementById("btn_save").id = "btn_next";
+      // document.getElementById("btn_next").setAttribute("onclick", "next()");
+    }
+  </script>

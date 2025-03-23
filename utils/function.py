@@ -143,7 +143,7 @@ def calculate_age_new(birthdate_str):
     age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day)) 
     return str(age)
 
-def calculate_investment(principal=None, future_value=None, annual_contribution=None, annual_rate=0, years=None):
+def calculate_investment(principal=None, future_value=None, annual_contribution=None, annual_rate=None, years=None):
     try:
         principal = Decimal(principal) if principal is not None else None
         future_value = Decimal(future_value) if future_value is not None else None
@@ -155,10 +155,10 @@ def calculate_investment(principal=None, future_value=None, annual_contribution=
             raise ValueError("You must leave exactly one parameter as None to solve for it.")
 
         if future_value is None:
-            fv_principal = principal * ((1 + annual_rate / 100) ** years)
+            fv_principal = principal * ((1 + (annual_rate / 100)) ** years)
             fv_contributions = Decimal(0)
             if annual_contribution:
-                fv_contributions = annual_contribution * (((1 + annual_rate / 100) ** years - 1) / (annual_rate / 100))
+                fv_contributions = annual_contribution * (((1 + (annual_rate / 100)) ** years - 1) / (annual_rate / 100))
             return (fv_principal + fv_contributions)
 
     except (InvalidOperation, TypeError, ValueError) as e:

@@ -34,7 +34,7 @@ def sum_have_fund_on_retirment(will_have_fund_on_retirment, must_have_fund_on_re
     THOR = 2
     total_cashflow = int(sumall)
     print(" --- sum_have_fund_on_retirment 2 ---")
-    missing_PMT = ((missing_fund*THOR/100)/(((1+THOR/100)**(int(retirement_age)-int(age)))-1))- total_cashflow
+    missing_PMT = ((missing_fund*THOR/100)/(((1+THOR/100)**(int(retirement_age)-int(age)))-1))
     message = ""
     print(" --- sum_have_fund_on_retirment ---")
     if missing_fund > 0:

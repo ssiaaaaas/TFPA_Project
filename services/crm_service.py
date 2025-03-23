@@ -44,13 +44,20 @@ class CRMService:
         }
         print("data : " , data)
         return render_template("CRM/User_CRM.html" , user=personal_info)
-    
+
+    @staticmethod
+    def Download():
+        id = request.args.get('id')
+        print("id :" , id)
+        return render_template("CRM/User1_Download.html" , id=id)
+
     @staticmethod
     def Dashboard1():
         id = request.args.get('id')
         print("id : " , id)
         personal_info = fincheck_repo.GetPersonalInfo(id)
         print("personal_info :" , personal_info)
+        financial_info = fincheck_repo.GetFinancialInfo(id)
         income = userdata_repo.GetIncome(id)[0]
         expense = userdata_repo.GetExpenseDetail(id)
         financial = fincheck_repo.GetFinancialInfo(id)
@@ -87,7 +94,8 @@ class CRMService:
         print("expense_sum :" , expense_sum)
 
 
-        sum_asset = int(asset['number_bank']) + int(asset['fixedDeposit'])
+        # sum_asset = int(asset['number_bank']) + int(asset['fixedDeposit'])
+        sum_asset = int(asset['number_bank'] or 0) + int(asset['fixedDeposit'] or 0)
 
         income_1  =float(income['income_1']) if income['income_1'] != "" else 0
         income_2  =float(income['income_2']) if income['income_2'] != "" else 0
@@ -211,7 +219,7 @@ class CRMService:
             }
         }
         print("data :", data)
-        return render_template("CRM/User1_Dashboard1.html" , user=personal_info , data=data)
+        return render_template("CRM/User1_Dashboard1.html" , user=personal_info, user_fin=financial_info , data=data)
     
     @staticmethod
     def Dashboard2():

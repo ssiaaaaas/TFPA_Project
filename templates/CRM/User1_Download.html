@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Planner Profile</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Thai&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Thai', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .home-button {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background-color: #cf9b3e;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 10; /* Ensure it stays above all other elements */
+        }
+
+        .home-button:hover {
+            background-color: #b98633;
+        }
+
+        .container {
+            width: 90%;
+            margin: 80px auto 20px; /* Top margin added to account for the fixed button */
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: flex;
+            gap: 20px;
+        }
+
+        .profile-sidebar {
+            width: 300px;
+            background-color: #043275;
+            border-radius: 10px;
+            color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-sidebar h3 {
+            font-size: 20px;
+            color: #f9f5ce;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #cf9b3e;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #b98633;
+        }
+
+        .profile-details {
+            flex: 1;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: none; /* Hidden by default */
+        }
+
+        .profile-details.active {
+            display: block; /* Show when content is loaded */
+        }
+
+        .profile-details-header {
+            font-size: 20px;
+            color: #043275;
+            margin-bottom: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .profile-details iframe {
+            width: 100%;
+            height: auto;
+            border: none;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <a href="/CRM/Dashboard/DownloadCashFlows?id={{id }}"><button>ดาวน์โหลด ตารางกระแสเงินสด</button></a>
+        <a href="/CRM/Dashboard/DownloadFinStatement?id={{ id }}"><button>ดาวน์โหลด งบการเงินส่วนบุคคล</button></a>
+    </div>
+</body>
+
+</html>

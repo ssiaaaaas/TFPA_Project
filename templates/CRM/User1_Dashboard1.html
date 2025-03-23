@@ -105,7 +105,7 @@
         <div class="card blue">
             <h3>อายุปัจจุบัน</h3>
             <h4>{{ user.age }}</h4>
-            <p>0% ของอายุเกษียณ</p>
+            <p>{{ ((user.age | int / user_fin.retirement_age | int) * 100) | round(2) }}% ของอายุเกษียณ</p>
         </div>
 
         <!-- Current Assets Pie Chart -->

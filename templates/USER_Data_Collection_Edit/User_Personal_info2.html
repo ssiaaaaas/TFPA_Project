@@ -148,10 +148,10 @@
   <div class="container">
     <div class="header">
       <div class="logo-container">
-        <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+        <img src="https://www.tfpa.or.th/images/logo.png" alt="Logo" class="logo">
       </div>
       <div class="home-container">
-        <button class="btn-home">หน้าหลัก</button>
+        <a href="/" class="btn-home">หน้าหลัก</a>
       </div>
     </div>
 
@@ -198,19 +198,19 @@
     <form id="data" method="post">
       <div class="form-group">
         <label for="id-number">เลขบัตรประชาชน*</label>
-        <input type="text" name="id_number" value="{{ data.id_number }}" id="id-number" placeholder="กรอกเลขบัตรประชาชน" required>
+        <input type="text" name="id_number" value="{{ data.id_number }}" id="id-number" placeholder="กรอกเลขบัตรประชาชน" >
       </div>
       <div class="form-group">
         <label for="current-address">เลขทะเบียนบ้าน*</label>
-        <input type="text" name="current_address"  value="{{ data.current_address }}" id="current-address" placeholder="กรอกที่อยู่ปัจจุบัน" required>
+        <input type="text" name="current_address"  value="{{ data.current_address }}" id="current-address" placeholder="กรอกที่อยู่ปัจจุบัน" >
       </div>
       <div class="form-group">
         <label for="postal-code">รหัสไปรษณีย์*</label>
-        <input type="text" name="postal_code" id="postal-code" value="{{ data.postal_code }}" placeholder="กรอกรหัสไปรษณีย์" required>
+        <input type="text" name="postal_code" id="postal-code" value="{{ data.postal_code }}" placeholder="กรอกรหัสไปรษณีย์" >
       </div>
       <div class="form-group">
         <label for="province">จังหวัด*</label>
-        <select name="province" id="province" required>
+        <select name="province" id="province" >
           <option value="" disabled selected>กรุณาเลือก</option>
         </select>
       </div>
@@ -218,7 +218,7 @@
       <!-- District -->
       <div class="form-group">
         <label for="district">อำเภอ*</label>
-        <select name="district" id="district" required>
+        <select name="district" id="district" >
           <option value="" disabled selected>กรุณาเลือก</option>
         </select>
       </div>
@@ -226,13 +226,13 @@
       <!-- Subdistrict -->
       <div class="form-group">
         <label for="subdistrict">ตำบล/แขวง*</label>
-        <select name="subdistrict" id="subdistrict" required>
+        <select name="subdistrict" id="subdistrict" >
           <option value="" disabled selected>กรุณาเลือก</option>
         </select>
       </div>
       <div class="form-group">
         <label for="street">ถนน*</label>
-        <input type="text" name="street" id="street" value="{{ data.street }}" placeholder="กรอกชื่อถนน" required>
+        <input type="text" name="street" id="street" value="{{ data.street }}" placeholder="กรอกชื่อถนน" >
       </div>
       <div class="form-group">
         <label for="village">หมู่</label>
@@ -1433,7 +1433,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-    function saveData() {
+function saveData() {
       Swal.fire({
         title: "คุณแน่ใจใช่ไหม",
         text: "ระบบจะทำการบันทึกข้อมูลทั้งหมด",
@@ -1446,8 +1446,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
+            title: "บันทึกสำเร็จ!",
+            text: "ข้อมูลได้บันทึกสำเร็จ",
             icon: "success"
           }).then((result) => {
 

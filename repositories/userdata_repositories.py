@@ -253,11 +253,13 @@ class UserDataRepositories:
             row = cursor.fetchone()
 
             if row is None:
-                return {}
+                return {"number_bank": "0", "fixedDeposit": "0"}
 
             result = {
-                "number_bank": row[0],
-                "fixedDeposit": row[1]
+                # "number_bank": row[0],
+                # "fixedDeposit": row[1]
+                "number_bank": row[0] if row[0] is not None else "0",
+                "fixedDeposit": row[1] if row[1] is not None else "0"
             }
 
             cursor.close()
@@ -265,7 +267,7 @@ class UserDataRepositories:
             return result
         except Exception as e:
             print(f"Error GetAsset: {e}")
-            return []
+            return {"number_bank": "0", "fixedDeposit": "0"}
         
     @staticmethod
     def SaveAssetDetail(personal_info_id , data):

@@ -18,6 +18,10 @@ def logout():
 def Dashboard():
    return crm_service.Dashboard()
 
+@crm.route('/Dashboard/download')
+def download():
+   return crm_service.Download()
+   
 @crm.route('/Dashboard/dashboard1')
 def Dashboard1():
    return crm_service.Dashboard1()

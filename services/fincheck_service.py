@@ -46,12 +46,15 @@ class FinCheckService:
             print("retirement_age : ", retirement_age)
             print("age : ", age)
             years_before_retirement = int(retirement_age) - int(age)
-            yearly_expenses = monthly_expenses * 12
+            yearly_expenses = Decimal(monthly_expenses) * 12
+            print("principal : ", Decimal(yearly_expenses))
+            print("annual_contribution : ", Decimal(inflation *100))
+            print("years : ", years_before_retirement)
 
             fund_on_retirement = fn.calculate_investment(
                 principal=Decimal(yearly_expenses),
                 annual_contribution=Decimal(0),
-                annual_rate=Decimal(inflation * 100),  
+                annual_rate=Decimal(inflation *100),  
                 years=years_before_retirement
             )
 
@@ -90,7 +93,7 @@ class FinCheckService:
             print(Solvency_Ratio)
             Debt_Service_Ratio = int(debt_payments) / int(monthly_income)
             print(Debt_Service_Ratio)
-            D = 1 if (Solvency_Ratio >= 0.5 and 0.35 > Debt_Service_Ratio > 0.45) else 0
+            D = 1 if (Solvency_Ratio >= 0.5 and Debt_Service_Ratio < 0.45) else 0
             Saving_Ratio = int(savings) / int(monthly_income)
             print(Saving_Ratio)
             S = 1 if Saving_Ratio >= 0.1 else 0
@@ -122,8 +125,7 @@ class FinCheckService:
     @staticmethod
     def Future_Millionaire():
         
-        file_master = "static/media/analysis_images/Future_Millionaire.png"
-        
+        file_master = "static/media/analysis_images/Future_Millionaire.jpg"
         financial_info = session.get("calculated_data", {})
         if financial_info == {}:
             return redirect(url_for("Fincheck.Personal_info"))
@@ -327,4 +329,3 @@ class FinCheckService:
         }
         session["data"] = data
         return render_template("Fincheck/Savings_Starter.html" , url_name=url_name)  
-    

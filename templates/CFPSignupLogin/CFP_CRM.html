@@ -232,6 +232,7 @@
                     {% endfor %}
                    
                 </select>
+                 <iframe id="dynamic-content-download" src="" style="width: 100%; height: 0; border: none;" onload="resizeIframe(this)"></iframe>
                 <iframe id="dynamic-content-dashboard1" src="" style="width: 100%; height: 0; border: none;" onload="resizeIframe(this)"></iframe>
                 <iframe id="dynamic-content-dashboard2" src="" style="width: 100%; height: 0; border: none;" onload="resizeIframe(this)"></iframe>
                 <iframe id="dynamic-content-dashboard3" src="" style="width: 100%; height: 0; border: none;" onload="resizeIframe(this)"></iframe>
@@ -241,8 +242,12 @@
         }
 
         function loadUserDashboard(value) {
-            alert("id :" + value)
+            // alert("id :" + value)
             if (!value) return;
+            
+
+            const iframedownload = document.getElementById('dynamic-content-download');
+            iframedownload.src = "/CRM/Dashboard/download?id=" +value; 
 
             const iframedashboard1 = document.getElementById('dynamic-content-dashboard1');
             iframedashboard1.src = "/CRM/Dashboard/dashboard1?id=" +value; 

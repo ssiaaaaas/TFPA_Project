@@ -23,7 +23,7 @@
         .header {
             width: 100%;
             background-color: #d1d5db; /* Soft grey background */
-            padding: 20px 0;
+            padding: 5px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -82,7 +82,10 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-top: 80px; /* To account for the fixed header */
         }
-
+        .logo-container {
+            flex: 1;
+            text-align: left;
+        }
         h1 {
             color: #053275; /* Dark blue */
         }
@@ -111,6 +114,9 @@
 <body>
     <!-- Header Section -->
     <div class="header">
+        <div class="logo-container">
+            <img src="https://www.tfpa.or.th/images/logo.png" alt="Logo" class="logo">
+          </div>
         <nav>
             <a href="https://www.tfpa.or.th/Resources?id=30" class="nav-btn">ข่าวสารและความรู้</a> <!-- External link to TFPA website -->
             <a href="https://www.tfpa.or.th/About?id=2" target="_blank" class="nav-btn">เกี่ยวกับสมาคม</a> <!-- External link to TFPA website -->

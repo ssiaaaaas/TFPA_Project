@@ -148,7 +148,7 @@
   <div class="container">
     <div class="header">
       <div class="logo-container">
-        <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+        <img src="https://www.tfpa.or.th/images/logo.png" alt="Logo" class="logo">
       </div>
       <div class="home-container">
         <a href="/" class="btn-home">หน้าหลัก</a>
@@ -251,7 +251,8 @@
         </select>
       </div>
       <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-        <button type="button" class="btn-submit">ย้อนกลับ</button>
+        <!-- <button type="button" class="btn-submit">ย้อนกลับ</button> -->
+        <a href="{{ url_for('userdata.Pick_CFP') }}" class="btn-submit">ย้อนกลับ</a>
         <button type="button" id="btn_save" onclick="saveData()" class="btn-submit">ถัดไป</button>
       </div>
     </form>
